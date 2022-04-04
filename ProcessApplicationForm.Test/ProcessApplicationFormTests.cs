@@ -17,17 +17,17 @@ public class ProcessApplicationFormTests
     
     public ProcessApplicationFormTests()
     {
-        var serviceCollection = new ServiceCollection();
+        ServiceCollection serviceCollection = new();
         serviceCollection.AddScoped<ILoggerFactory, LoggerFactory>();
         var serviceProvider = serviceCollection.BuildServiceProvider();
         
-        _mockContext = new Mock<FunctionContext>();
+        _mockContext = new();
         _mockContext.SetupProperty(c => c.InstanceServices, serviceProvider);
         
-        _mockRequest = new Mock<HttpRequestData>(_mockContext.Object);
+        _mockRequest = new(_mockContext.Object);
         _mockRequest.Setup(r => r.CreateResponse()).Returns(() =>
         {
-            var response = new Mock<HttpResponseData>(_mockContext.Object);
+            Mock<HttpResponseData> response = new(_mockContext.Object);
             response.SetupProperty(r => r.Headers, new HttpHeadersCollection());
             response.SetupProperty(r => r.StatusCode);
             response.SetupProperty(r => r.Body, new MemoryStream());
@@ -39,7 +39,7 @@ public class ProcessApplicationFormTests
     [Fact]
     public async Task ProcessApplicationForm_WhenSuccessful_ReturnsOk()
     {
-        var function = new ProcessApplicationFormFunction.ProcessApplicationForm();
+        ProcessApplicationFormFunction.ProcessApplicationForm function = new() ;
 
         var result = await function.Process( _mockRequest.Object, _mockContext.Object);
 
