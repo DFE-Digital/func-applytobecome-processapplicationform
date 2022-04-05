@@ -8,8 +8,9 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
-namespace ProcessApplicationForm.Test;
+namespace ProcessApplicationForm.Test.IntegrationTests;
 
+[Collection("Integration")]
 public class ProcessApplicationFormTests
 {
     private readonly Mock<FunctionContext> _mockContext;
