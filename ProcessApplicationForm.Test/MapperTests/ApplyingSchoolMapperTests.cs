@@ -72,6 +72,7 @@ public class ApplyingSchoolMapperTests
             custom.With(p => p.SchoolCFYRevenueSurplusOrDeficit, 907660000);
             custom.With(p => p.SchoolNFYCapitalSurplusOrDeficit, 907660000);
             custom.With(p => p.SchoolNFYRevenueSurplusOrDeficit, 907660000);
+            custom.With(p => p.SchoolSupportGrantFundsPaidTo, 907660000);
 
             return custom;
         });
