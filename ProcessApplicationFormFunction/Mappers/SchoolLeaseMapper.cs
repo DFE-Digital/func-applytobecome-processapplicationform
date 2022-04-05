@@ -6,8 +6,15 @@ namespace ProcessApplicationFormFunction.Mappers;
 
 public class SchoolLeaseMapper : IMapper<StagingSchoolLease, A2BSchoolLease>
 {
-    public IEnumerable<A2BSchoolLease> Map(ICollection<StagingSchoolLease> source)
-    {
-        return source.Select(schoolLease => new A2BSchoolLease());
-    }
+    public IEnumerable<A2BSchoolLease> Map(ICollection<StagingSchoolLease> source) => source
+        .Select(schoolLease => new A2BSchoolLease()
+        {
+            SchoolLeaseInterestRate = schoolLease.SchoolLeaseInterestRate,
+            SchoolLeasePaymentToDate = schoolLease.SchoolLeasePaymentToDate,
+            SchoolLeasePurpose = schoolLease.SchoolLeasePurpose,
+            SchoolLeaseRepaymentValue = schoolLease.SchoolLeaseRepaymentValue,
+            SchoolLeaseResponsibleForAssets = schoolLease.SchoolLeaseResponsibleForAssets,
+            SchoolLeaseTerm = schoolLease.SchoolLeaseTerm,
+            SchoolLeaseValueOfAssets = schoolLease.SchoolLeaseValueOfAssets            
+        });
 }
