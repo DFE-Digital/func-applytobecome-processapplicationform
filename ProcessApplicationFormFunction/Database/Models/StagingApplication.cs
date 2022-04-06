@@ -31,7 +31,7 @@ public record StagingApplication
     public string TrustApproverName {get; init;}
     public string TrustApproverEmail {get; init;}
     public int? FormTrustReasonApprovalToConvertAsSat {get; init;}
-    public string FormTrustApprovedPerson {get; init;}
+    public string FormTrustReasonApprovedPerson {get; init;}
     public string FormTrustReasonForming {get; init;}
     public string FormTrustReasonVision {get; init;}
     public string FormTrustReasonGeoAreas {get; init;}
