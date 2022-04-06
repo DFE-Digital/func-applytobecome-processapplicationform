@@ -31,7 +31,7 @@ public record StagingApplyingSchool
 	public string SchoolConversionContactChairName { get; init; }
 	public string SchoolConversionContactChairEmail {get;init;}
 	public string SchoolConversionContactChairTel {get;init;}
-	public string SchoolConversionContactRole { get; init; }
+	public int? SchoolConversionContactRole { get; init; }
 	public string SchoolConversionMainContactOtherName {get;init;}
 	public string SchoolConversionMainContactOtherEmail {get;init;}
 	public string SchoolConversionMainContactOtherTelephone {get;init;}
