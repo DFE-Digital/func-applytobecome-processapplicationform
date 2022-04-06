@@ -41,44 +41,40 @@ public class ApplyingSchoolMapperTests
     public void Map_WhenGivenCollectionOfStagingApplicationApplyingSchool_ShouldReturnMappedCollectionOfA2BApplicationApplyingSchool()
     {
         Fixture fixture = new();
-        fixture.Customize<StagingApplyingSchool>(custom =>
+        var stagingApplicationApplyingSchool = fixture.Create<StagingApplyingSchool>() with
         {
-            custom.With(p => p.SchoolDeclarationBodyAgree, 907660000);
-            custom.With(p => p.SchoolDeclarationTeacherChair, 907660000);
-            custom.With(p => p.SchoolConversionTargetDateDifferent, 907660000);
-            custom.With(p => p.SchoolConversionChangeName, 907660000);
-            custom.With(p => p.SchoolAdInspectedButReportNotPublished, 907660000);
-            custom.With(p => p.SchoolLaReorganization, 907660000);
-            custom.With(p => p.SchoolLaClosurePlans, 907660000);
-            custom.With(p => p.SchoolPartOfFederation, 907660000);
-            custom.With(p => p.SchoolAddFurtherInformation, 907660000);
-            custom.With(p => p.SchoolAdSafeguarding, 907660000);
-            custom.With(p => p.SchoolSACREExemption, 907660000);
-            custom.With(p => p.SchoolSupportedFoundation, 907660000);
-            custom.With(p => p.SchoolAdEqualitiesImpactAssessment, 907660000);
-            custom.With(p => p.SchoolFinancialInvestigations, 907660000);
-            custom.With(p => p.SchoolFinancialInvestigationsTrustAware, 907660000);
-            custom.With(p => p.SchoolBuildLandSharedFacilities, 907660000);
-            custom.With(p => p.SchoolBuildLandWorksPlanned, 907660000);
-            custom.With(p => p.SchoolBuildLandGrants, 907660000);
-            custom.With(p => p.SchoolBuildLandPriorityBuildingProgramme, 907660000);
-            custom.With(p => p.SchoolBuildLandFutureProgramme, 907660000);
-            custom.With(p => p.SchoolBuildLandPFIScheme, 907660000);
-            custom.With(p => p.SchoolConsultationStakeholders, 907660000);
-            custom.With(p => p.SchoolBuildLandPFIScheme, 907660000);
-            custom.With(p => p.SchoolPFYCapitalSurplusOrDeficit, 907660000);
-            custom.With(p => p.SchoolPFYRevenueSurplusOrDeficit, 907660000);
-            custom.With(p => p.SchoolCFYCapitalSurplusOrDeficit, 907660000);
-            custom.With(p => p.SchoolCFYRevenueSurplusOrDeficit, 907660000);
-            custom.With(p => p.SchoolNFYCapitalSurplusOrDeficit, 907660000);
-            custom.With(p => p.SchoolNFYRevenueSurplusOrDeficit, 907660000);
-            custom.With(p => p.SchoolSupportGrantFundsPaidTo, 907660000);
-
-            return custom;
-        });
-
-        var stagingApplicationApplyingSchool = fixture.Create<StagingApplyingSchool>();
-           
+            SchoolDeclarationBodyAgree = 907660000,
+            SchoolDeclarationTeacherChair = 907660000,
+            SchoolConversionTargetDateDifferent = 907660000,
+            SchoolConversionChangeName = 907660000,
+            SchoolAdInspectedButReportNotPublished = 907660000,
+            SchoolLaReorganization = 907660000,
+            SchoolLaClosurePlans = 907660000,
+            SchoolPartOfFederation = 907660000,
+            SchoolAddFurtherInformation = 907660000,
+            SchoolAdSafeguarding = 907660000,
+            SchoolSACREExemption = 907660000,
+            SchoolSupportedFoundation = 907660000,
+            SchoolAdEqualitiesImpactAssessment = 907660000,
+            SchoolFinancialInvestigations = 907660000,
+            SchoolFinancialInvestigationsTrustAware = 907660000,
+            SchoolBuildLandSharedFacilities = 907660000,
+            SchoolBuildLandWorksPlanned = 907660000,
+            SchoolBuildLandGrants = 907660000,
+            SchoolBuildLandPriorityBuildingProgramme = 907660000,
+            SchoolBuildLandFutureProgramme = 907660000,
+            SchoolBuildLandPFIScheme = 907660000,
+            SchoolConsultationStakeholders = 907660000,
+            SchoolPFYCapitalSurplusOrDeficit = 907660000,
+            SchoolPFYRevenueSurplusOrDeficit = 907660000,
+            SchoolCFYCapitalSurplusOrDeficit = 907660000,
+            SchoolCFYRevenueSurplusOrDeficit = 907660000,
+            SchoolNFYCapitalSurplusOrDeficit = 907660000,
+            SchoolNFYRevenueSurplusOrDeficit = 907660000,
+            SchoolSupportGrantFundsPaidTo = 907660000,
+            SchoolConversionContactRole = 90760000
+        };
+        
         List<StagingApplyingSchool> applyingSchool = new() { stagingApplicationApplyingSchool };
         List<A2BApplicationApplyingSchool> expectedResult = new()
         {
