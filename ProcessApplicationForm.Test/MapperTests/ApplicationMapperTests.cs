@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using Moq;
 using ProcessApplicationFormFunction.Database.Models;
 using ProcessApplicationFormFunction.Mappers;
@@ -35,6 +36,6 @@ public class ApplicationMapperTests
 
         var result = mapper.Map(source);
 
-        Assert.IsAssignableFrom<IEnumerable<A2BApplication>>(result);
+        result.Should().BeAssignableTo<IEnumerable<A2BApplication>>();
     }
 }

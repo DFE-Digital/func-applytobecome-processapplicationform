@@ -1,9 +1,10 @@
+using FluentAssertions;
 using ProcessApplicationFormFunction.Extensions;
 using Xunit;
 
 namespace ProcessApplicationForm.Test.ExtensionsTests;
 
-public class StringExtensionsTests
+public class IntExtensionsTests
 {
     [Theory]
     [InlineData(907660000, false)]
@@ -24,8 +25,8 @@ public class StringExtensionsTests
     public void ConvertApplicationType_ReturnsExpectedValueFromInlineData(int? input, string expected)
     {
         var result = input.ConvertApplicationType();
-        
-        Assert.Equal(expected, result);
+
+        result.Should().Be(expected);
     }
 
     [Theory]
@@ -36,8 +37,8 @@ public class StringExtensionsTests
     public void ConvertApplicationRole_ReturnsExpectedValueFromInlineData(int? input, string expected)
     {
         var result = input.ConvertApplicationRole();
-        
-        Assert.Equal(expected, result);
+
+        result.Should().Be(expected);
     }
 
     [Theory]
@@ -47,10 +48,10 @@ public class StringExtensionsTests
     public void ConvertDynamicsIntBool_ReturnsExpectedValueFromInlineData(int? input, bool? expected)
     {
         var result = input.ConvertDynamicsIntBool();
-        
-        Assert.Equal(expected, result);
+
+        result.Should().Be(expected);
     }
-    
+
     [Theory]
     [InlineData(907660000, "School")]
     [InlineData(907660001, "Trust")]
@@ -58,7 +59,7 @@ public class StringExtensionsTests
     public void ConvertFundsPaidTo_ReturnsExpectedValueFromInlineData(int? input, string expected)
     {
         var result = input.ConvertFundsPaidTo();
-        
-        Assert.Equal(expected, result);
+
+        result.Should().Be(expected);
     }
 }

@@ -17,7 +17,7 @@ public class KeyPersonMapperTests
 
         var result = mapper.Map(source);
 
-        Assert.IsAssignableFrom<IEnumerable<A2BApplicationKeyPerson>>(result);
+        result.Should().BeAssignableTo<IEnumerable<A2BApplicationKeyPerson>>();
     }
 
     [Fact]

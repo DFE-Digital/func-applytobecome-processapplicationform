@@ -17,7 +17,7 @@ public class SchoolLeaseMapperTests
 
         var result = mapper.Map(source);
 
-        Assert.IsAssignableFrom<IEnumerable<A2BSchoolLease>>(result);
+        result.Should().BeAssignableTo<IEnumerable<A2BSchoolLease>>();
     }
 
     [Fact]

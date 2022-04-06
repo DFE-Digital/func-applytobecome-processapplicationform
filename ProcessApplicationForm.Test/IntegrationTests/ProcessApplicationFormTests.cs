@@ -1,6 +1,7 @@
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +45,6 @@ public class ProcessApplicationFormTests
 
         var result = await function.Process( _mockRequest.Object, _mockContext.Object);
 
-        Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }
