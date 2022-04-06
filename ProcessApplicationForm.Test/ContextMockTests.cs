@@ -1,6 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using ProcessApplicationForm.Test.Data;
 using ProcessApplicationFormFunction.Database;
 using ProcessApplicationFormFunction.Database.Models;
 using Xunit;
@@ -18,11 +19,11 @@ public class ContextMockTests
 
         var dynamicsApplicationId = Guid.NewGuid();
         var dynamicsApplyingSchoolId = Guid.NewGuid();
-        
-       
 
 
-        mockContext.SetupGet(x => x.DynamicsApplications).Returns()
+
+
+        mockContext.SetupGet(x => x.DynamicsApplications).Returns(TestData.StagingApplyingSchoolData);
 
     }
 }
