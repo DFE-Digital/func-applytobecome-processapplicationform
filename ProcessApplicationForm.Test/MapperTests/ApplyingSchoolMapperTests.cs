@@ -41,45 +41,8 @@ public class ApplyingSchoolMapperTests
     [Fact]
     public void Map_WhenGivenCollectionOfStagingApplicationApplyingSchool_ShouldReturnMappedCollectionOfA2BApplicationApplyingSchool()
     {
-        Random rnd = new Random();
-
-        var stagingApplyingSchool = Builder<StagingApplyingSchool>
-            .CreateNew()
-            .With(p => p.SchoolDeclarationBodyAgree, 907660000)
-            .With(p => p.SchoolDeclarationTeacherChair, 907660000)
-            .With(p => p.SchoolConversionTargetDateDifferent, 907660000)
-            .With(p => p.SchoolConversionChangeName, 907660000)
-            .With(p => p.SchoolAdInspectedButReportNotPublished, 90766000)
-            .With(p => p.SchoolLaReorganization, 907660000)
-            .With(p => p.SchoolLaClosurePlans, 907660000)
-            .With(p => p.SchoolPartOfFederation, 907660000)
-            .With(p => p.SchoolAddFurtherInformation, 907660000)
-            .With(p => p.SchoolAdSafeguarding, 907660000)
-            .With(p => p.SchoolSACREExemption, 907660000)
-            .With(p => p.SchoolSupportedFoundation, 907660000)
-            .With(p => p.SchoolAdEqualitiesImpactAssessment, 907660000)
-            .With(p => p.SchoolFinancialInvestigations, 907660000)
-            .With(p => p.SchoolFinancialInvestigationsTrustAware, 907660000)
-            .With(p => p.SchoolBuildLandSharedFacilities, 907660000)
-            .With(p => p.SchoolBuildLandWorksPlanned, 907660000)
-            .With(p => p.SchoolBuildLandGrants, 907660000)
-            .With(p => p.SchoolBuildLandPriorityBuildingProgramme, 907660000)
-            .With(p => p.SchoolBuildLandFutureProgramme, 907660000)
-            .With(p => p.SchoolBuildLandPFIScheme, 907660000)
-            .With(p => p.SchoolConsultationStakeholders, 907660000)
-            .With(p => p.SchoolBuildLandPFIScheme, 907660000)
-            .With(p => p.SchoolPFYCapitalSurplusOrDeficit, 907660000)
-            .With(p => p.SchoolPFYRevenueSurplusOrDeficit, 907660000)
-            .With(p => p.SchoolCFYCapitalSurplusOrDeficit, 907660000)
-            .With(p => p.SchoolCFYRevenueSurplusOrDeficit, 907660000)
-            .With(p => p.SchoolNFYCapitalSurplusOrDeficit, 907660000)
-            .With(p => p.SchoolNFYRevenueSurplusOrDeficit, 907660000)
-            .With(p => p.SchoolSupportGrantFundsPaidTo, 907660000)
-            .With(p => p.SchoolCapacityPublishedAdmissionsNumber, rnd.Next().ToString())
-            .Build();
-
-        List<StagingApplyingSchool> applyingSchool = new() { stagingApplyingSchool };
-        List<A2BApplicationApplyingSchool> expectedResult = new()
+        Fixture fixture = new();
+        fixture.Customize<StagingApplyingSchool>(custom =>
         {
             // document links missing from staging model - remove from A2BApplicationApplyingSchool model?
             new()

@@ -28,14 +28,14 @@ public record StagingApplyingSchool
 	public string SchoolConversionContactHeadName {get;init;}
 	public string SchoolConversionContactHeadEmail {get;init;}
 	public string SchoolConversionContactHeadTel {get;init;}
-    public string SchoolConversionContactChairName { get; init; }
-    public string SchoolConversionContactChairEmail {get;init;}
+	public string SchoolConversionContactChairName { get; init; }
+	public string SchoolConversionContactChairEmail {get;init;}
 	public string SchoolConversionContactChairTel {get;init;}
+	public int? SchoolConversionContactRole { get; init; }
 	public string SchoolConversionMainContactOtherName {get;init;}
 	public string SchoolConversionMainContactOtherEmail {get;init;}
 	public string SchoolConversionMainContactOtherTelephone {get;init;}
-    public int? SchoolConversionMainContactOther { get; init; }
-    public string SchoolConversionMainContactOtherRole {get;init;}
+	public string SchoolConversionMainContactOtherRole {get;init;}
 	public string SchoolConversionApproverContactName {get;init;}
 	public string SchoolConversionApproverContactEmail {get;init;}
 	public int? SchoolAdInspectedButReportNotPublished {get;init;}
