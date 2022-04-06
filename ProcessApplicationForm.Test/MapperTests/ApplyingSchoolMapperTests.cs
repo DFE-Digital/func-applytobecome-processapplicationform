@@ -172,7 +172,7 @@ public class ApplyingSchoolMapperTests
             SchoolSupportedFoundationBodyName = applyingSchool.SchoolSupportedFoundationBodyName,
             SchoolSupportGrantFundsPaidTo = applyingSchool.SchoolSupportGrantFundsPaidTo.ConvertFundsPaidTo(),
             SchoolLeases = new List<A2BSchoolLease>(),
-            SchoolLoans = new List<A2BSchoolLoan>()
+            SchoolLoans = new List<A2BSchoolLoan>(),
         };
 
         List<StagingApplyingSchool> applyingSchools = new() {applyingSchool};
