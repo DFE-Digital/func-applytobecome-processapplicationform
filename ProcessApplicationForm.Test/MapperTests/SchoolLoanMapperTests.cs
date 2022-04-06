@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using AutoFixture;
 using FluentAssertions;
+using ProcessApplicationForm.Test.Data;
 using ProcessApplicationFormFunction.Database.Models;
 using ProcessApplicationFormFunction.Mappers;
 using Xunit;
@@ -9,13 +9,16 @@ namespace ProcessApplicationForm.Test.MapperTests;
 
 public class SchoolLoanMapperTests
 {
+    private readonly SchoolLoanMapper _mapper;
+
+    public SchoolLoanMapperTests() => _mapper = new();
+
     [Fact]
     public void Map_WhenGivenCollectionOfStagingSchoolLoan_ShouldReturnCollectionOfTypeIEnumerableA2BSchoolLoan()
     {
-        SchoolLoanMapper mapper = new();
-        List<StagingSchoolLoan> source = new();
+        List<StagingSchoolLoan> stagingSchoolLoans = new() {TestData.StagingSchoolLoanData};
 
-        var result = mapper.Map(source);
+        var result = _mapper.Map(stagingSchoolLoans);
 
         result.Should().BeAssignableTo<IEnumerable<A2BSchoolLoan>>();
     }
@@ -23,23 +26,11 @@ public class SchoolLoanMapperTests
     [Fact]
     public void Map_WhenGivenCollectionOfStagingSchoolLoan_ShouldReturnMappedCollectionOfA2BSchoolLoan()
     {
-        Fixture fixture = new();
-        var stagingSchoolLoan = fixture.Create<StagingSchoolLoan>();
-        List<StagingSchoolLoan> schoolLoanList = new() { stagingSchoolLoan };
-
-        List<A2BSchoolLoan> expectedResult = new() {
-            new() {
-                SchoolLoanAmount = stagingSchoolLoan.SchoolLoanAmount,
-                SchoolLoanInterestRate = stagingSchoolLoan.SchoolLoanInterestRate,
-                SchoolLoanProvider = stagingSchoolLoan.SchoolLoanProvider,
-                SchoolLoanPurpose = stagingSchoolLoan.SchoolLoanPurpose,
-                SchoolLoanSchedule = stagingSchoolLoan.SchoolLoanSchedule
-            }
-        };
-
-        SchoolLoanMapper mapper = new();
-         
-        var result = mapper.Map(schoolLoanList);
-        result.Should().BeEquivalentTo(expectedResult);
+        List<StagingSchoolLoan> schoolLoanList = new() {TestData.StagingSchoolLoanData};
+        List<A2BSchoolLoan> expected = new() {TestData.A2BSchoolLoanData};
+        
+        var result = _mapper.Map(schoolLoanList);
+        
+        result.Should().BeEquivalentTo(expected);
     }
 }

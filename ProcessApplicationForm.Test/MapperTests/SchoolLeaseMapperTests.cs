@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using AutoFixture;
 using FluentAssertions;
+using ProcessApplicationForm.Test.Data;
 using ProcessApplicationFormFunction.Database.Models;
 using ProcessApplicationFormFunction.Mappers;
 using Xunit;
@@ -9,13 +9,15 @@ namespace ProcessApplicationForm.Test.MapperTests;
 
 public class SchoolLeaseMapperTests
 {
+    private readonly SchoolLeaseMapper _mapper;
+    public SchoolLeaseMapperTests() => _mapper = new();
+
     [Fact]
     public void Map_WhenGivenCollectionOfStagingSchoolLease_ShouldReturnCollectionOfTypeIEnumerableA2BSchoolLease()
     {
-        SchoolLeaseMapper mapper = new();
-        List<StagingSchoolLease> source = new();
+        List<StagingSchoolLease> stagingSchoolLeases = new() {TestData.StagingSchoolLeaseData};
 
-        var result = mapper.Map(source);
+        var result = _mapper.Map(stagingSchoolLeases);
 
         result.Should().BeAssignableTo<IEnumerable<A2BSchoolLease>>();
     }
@@ -23,26 +25,11 @@ public class SchoolLeaseMapperTests
     [Fact]
     public void Map_WhenGivenCollectionOfStagingSchoolLease_ShouldReturnMappedCollectionOfA2BSchoolLease()
     {
-        Fixture fixture = new Fixture();
-        var stagingSchoolLease = fixture.Create<StagingSchoolLease>();
-        List<StagingSchoolLease> schoolLease = new()  { stagingSchoolLease };
-        List<A2BSchoolLease> expectedResult = new()
-        {
-            new()
-            {
-                SchoolLeaseInterestRate = stagingSchoolLease.SchoolLeaseInterestRate,
-                SchoolLeasePaymentToDate = stagingSchoolLease.SchoolLeasePaymentToDate,
-                SchoolLeasePurpose = stagingSchoolLease.SchoolLeasePurpose,
-                SchoolLeaseRepaymentValue = stagingSchoolLease.SchoolLeaseRepaymentValue,
-                SchoolLeaseResponsibleForAssets = stagingSchoolLease.SchoolLeaseResponsibleForAssets,
-                SchoolLeaseTerm = stagingSchoolLease.SchoolLeaseTerm,
-                SchoolLeaseValueOfAssets = stagingSchoolLease.SchoolLeaseValueOfAssets
-            }
-        };
+        List<StagingSchoolLease> stagingSchoolLeases = new() {TestData.StagingSchoolLeaseData};
+        List<A2BSchoolLease> expected = new() {TestData.A2BSchoolLeaseData};
+        
+        var result = _mapper.Map(stagingSchoolLeases);
 
-        SchoolLeaseMapper mapper = new();
-        var result = mapper.Map(schoolLease);
-
-        result.Should().BeEquivalentTo(expectedResult);
+        result.Should().BeEquivalentTo(expected);
     }
 }
