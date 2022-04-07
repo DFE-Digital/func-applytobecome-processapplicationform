@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
-using ProcessApplicationFormFunction.Database;
 using ProcessApplicationFormFunction.Database.Models;
 using ProcessApplicationFormFunction.Mappers;
 using ProcessApplicationFormFunction.Repository;

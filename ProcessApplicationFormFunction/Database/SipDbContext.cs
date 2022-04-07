@@ -12,16 +12,7 @@ public class SipDbContext : DbContext
     public SipDbContext(DbContextOptions<SipDbContext> options) : base(options) {}
 
     public virtual DbSet<StagingApplication> DynamicsApplications { get; set; }
-    public virtual DbSet<StagingKeyPerson> DynamicsKeyPerson { get; set; }
-    public virtual DbSet<StagingApplyingSchool> DynamicsApplyingSchools { get; set; }
-    public virtual DbSet<StagingSchoolLease> DynamicsSchoolLeases { get; set; }
-    public virtual DbSet<StagingSchoolLoan> DynamicsSchoolLoans { get; set; }
-    
     public virtual DbSet<A2BApplication> A2BApplications { get; set; }
-    public virtual DbSet<A2BApplicationKeyPerson> A2BApplicationKeyPersons { get; set; }
-    public virtual DbSet<A2BApplicationApplyingSchool> A2BApplicationApplyingSchools { get; set; }
-    public virtual DbSet<A2BSchoolLease> A2BApplicationSchoolLeases{ get; set; }
-    public virtual DbSet<A2BSchoolLoan> A2BApplicationSchoolLoans { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
