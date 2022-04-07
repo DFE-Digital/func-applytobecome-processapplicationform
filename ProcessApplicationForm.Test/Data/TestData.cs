@@ -198,6 +198,9 @@ public static class TestData
             SchoolSupportedFoundation = StagingApplyingSchoolData.SchoolSupportedFoundation.ConvertDynamicsIntBool(),
             SchoolSupportedFoundationBodyName = StagingApplyingSchoolData.SchoolSupportedFoundationBodyName,
             SchoolSupportGrantFundsPaidTo = StagingApplyingSchoolData.SchoolSupportGrantFundsPaidTo.ConvertFundsPaidTo(),
+            FoundationEvidenceDocumentLink = null,
+            DiocesePermissionEvidenceDocumentLink = null,
+            GoverningBodyConsentEvidenceDocumentLink = null,
             SchoolLeases = new HashSet<A2BSchoolLease>(),
             SchoolLoans = new HashSet<A2BSchoolLoan>()
         };
