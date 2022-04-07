@@ -1,4 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using AutoFixture;
 using ProcessApplicationFormFunction.Database.Models;
 using ProcessApplicationFormFunction.Extensions;
@@ -18,14 +22,10 @@ public static class TestData
     public static A2BSchoolLoan A2BSchoolLoanData { get; }
     public static A2BSchoolLease A2BSchoolLeaseData { get; }
     
-    public static StagingApplication CompleteStagingApplication { get; }
-    
-    public static A2BApplication CompleteA2BApplication { get; }
-    
     static TestData()
     {
         var fixture = new Fixture();
-        
+
         StagingApplicationData = fixture.Create<StagingApplication>() with
         {
             ApplicationRole = 907660002,
@@ -35,7 +35,7 @@ public static class TestData
             FormTrustGrowthPlansYesNo = 907660000,
             FormTrustReasonApprovalToConvertAsSat = 907660000
         };
-        
+
         A2BApplicationData = new()
         {
             ApplicationLeadAuthorId = StagingApplicationData.ApplicationLeadAuthorId,
@@ -70,10 +70,10 @@ public static class TestData
             TrustApproverEmail = StagingApplicationData.TrustApproverEmail,
             TrustApproverName = StagingApplicationData.TrustApproverName,
             TrustId = StagingApplicationData.TrustId,
-            ApplyingSchools = new List<A2BApplicationApplyingSchool>(),
-            KeyPersons = new List<A2BApplicationKeyPerson>()
+            ApplyingSchools = new HashSet<A2BApplicationApplyingSchool>(),
+            KeyPersons = new HashSet<A2BApplicationKeyPerson>()
         };
-        
+
         StagingApplyingSchoolData = fixture.Create<StagingApplyingSchool>() with
         {
             SchoolDeclarationBodyAgree = 907660000,
@@ -200,12 +200,12 @@ public static class TestData
             SchoolSupportedFoundation = StagingApplyingSchoolData.SchoolSupportedFoundation.ConvertDynamicsIntBool(),
             SchoolSupportedFoundationBodyName = StagingApplyingSchoolData.SchoolSupportedFoundationBodyName,
             SchoolSupportGrantFundsPaidTo = StagingApplyingSchoolData.SchoolSupportGrantFundsPaidTo.ConvertFundsPaidTo(),
-            SchoolLeases = new List<A2BSchoolLease>(),
-            SchoolLoans = new List<A2BSchoolLoan>()
+            SchoolLeases = new HashSet<A2BSchoolLease>(),
+            SchoolLoans = new HashSet<A2BSchoolLoan>()
         };
-        
+
         StagingKeyPersonData = fixture.Create<StagingKeyPerson>();
-        
+
         A2BApplicationKeyPersonData = new()
         {
             Name = StagingKeyPersonData.Name,
@@ -218,9 +218,9 @@ public static class TestData
             KeyPersonOther = StagingKeyPersonData.KeyPersonOther,
             KeyPersonTrustee = StagingKeyPersonData.KeyPersonTrustee
         };
-        
+
         StagingSchoolLeaseData = fixture.Create<StagingSchoolLease>();
-        
+
         A2BSchoolLeaseData = new()
         {
             SchoolLeaseInterestRate = StagingSchoolLeaseData.SchoolLeaseInterestRate,
@@ -231,9 +231,9 @@ public static class TestData
             SchoolLeaseTerm = StagingSchoolLeaseData.SchoolLeaseTerm,
             SchoolLeaseValueOfAssets = StagingSchoolLeaseData.SchoolLeaseValueOfAssets
         };
-        
+
         StagingSchoolLoanData = fixture.Create<StagingSchoolLoan>();
-        
+
         A2BSchoolLoanData = new()
         {
             SchoolLoanAmount = StagingSchoolLoanData.SchoolLoanAmount,
@@ -242,31 +242,95 @@ public static class TestData
             SchoolLoanPurpose = StagingSchoolLoanData.SchoolLoanPurpose,
             SchoolLoanSchedule = StagingSchoolLoanData.SchoolLoanSchedule
         };
-        
-        CompleteStagingApplication = StagingApplicationData with
-        {
-            KeyPersons = new List<StagingKeyPerson> {StagingKeyPersonData},
-            ApplyingSchools = new List<StagingApplyingSchool>
-            {
-                StagingApplyingSchoolData with
-                {
-                    SchoolLeases = new List<StagingSchoolLease> {StagingSchoolLeaseData},
-                    SchoolLoans = new List<StagingSchoolLoan> {StagingSchoolLoanData}
-                }
-            }
-        };
-        
-        CompleteA2BApplication = A2BApplicationData with
-        {
-            KeyPersons = new List<A2BApplicationKeyPerson> {A2BApplicationKeyPersonData},
-            ApplyingSchools = new List<A2BApplicationApplyingSchool>
-            {
-                A2BApplicationApplyingSchoolData with
-                {
-                    SchoolLeases = new List<A2BSchoolLease> {A2BSchoolLeaseData},
-                    SchoolLoans = new List<A2BSchoolLoan> {A2BSchoolLoanData}
-                }
-            }
-        };
     }
+
+    public static IEnumerable<A2BApplication> GenerateCompleteA2BApplications(int count) =>
+        Enumerable.Range(1, count).Select(id =>
+        {
+            var applicationId = $"A2B_TEST{id}";
+
+            return A2BApplicationData with
+            {
+                ApplicationId = applicationId,
+                Name = applicationId,
+                KeyPersons = new HashSet<A2BApplicationKeyPerson>
+                {
+                    A2BApplicationKeyPersonData with
+                    {
+                        ApplicationId = applicationId,
+                        KeyPersonId = id
+                    }
+                },
+                ApplyingSchools = new HashSet<A2BApplicationApplyingSchool>
+                {
+                    A2BApplicationApplyingSchoolData with
+                    {
+                        ApplicationId = applicationId,
+                        ApplyingSchoolId = id,
+                        SchoolLeases = new HashSet<A2BSchoolLease>
+                        {
+                            A2BSchoolLeaseData with
+                            {
+                                ApplyingSchoolId = id,
+                                SchoolLeaseId = id
+                            }
+                        },
+                        SchoolLoans = new HashSet<A2BSchoolLoan>
+                        {
+                            A2BSchoolLoanData with
+                            {
+                                ApplyingSchoolId = id,
+                                SchoolLoanId = id
+                            }
+                        }
+                    }
+                }
+            };
+        });
+
+    public static IEnumerable<StagingApplication> GenerateCompleteStagingApplications(int count) =>
+        Enumerable.Range(1, count).Select(id =>
+        {
+            var dynamicsApplicationId = Guid.NewGuid();
+            var dynamicsApplyingSchoolId = Guid.NewGuid();
+
+            return StagingApplicationData with
+            {
+                Name = $"A2B_TEST{id}",
+                ApplicationId = $"A2B_TEST{id}",
+                DynamicsApplicationId = dynamicsApplicationId,
+                KeyPersons = new HashSet<StagingKeyPerson>
+                {
+                    StagingKeyPersonData with
+                    {
+                        DynamicsApplicationId = dynamicsApplicationId,
+                        DynamicsKeyPersonId = Guid.NewGuid()
+                    }
+                },
+                ApplyingSchools = new HashSet<StagingApplyingSchool>
+                {
+                    StagingApplyingSchoolData with
+                    {
+                        DynamicsApplicationId = dynamicsApplicationId,
+                        DynamicsApplyingSchoolId = dynamicsApplyingSchoolId,
+                        SchoolLeases = new HashSet<StagingSchoolLease>
+                        {
+                            StagingSchoolLeaseData with
+                            {
+                                DynamicsApplyingSchoolId = dynamicsApplyingSchoolId,
+                                DynamicsSchoolLeaseId = Guid.NewGuid()
+                            }
+                        },
+                        SchoolLoans = new HashSet<StagingSchoolLoan>
+                        {
+                            StagingSchoolLoanData with
+                            {
+                                DynamicsApplyingSchoolId = dynamicsApplyingSchoolId,
+                                DynamicsSchoolLoanId = Guid.NewGuid()
+                            }
+                        }
+                    }
+                }
+            };
+        });
 }

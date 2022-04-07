@@ -19,10 +19,10 @@ public class ApplicationMapperTests
         
         mockApplyingSchoolMapper
             .Setup(m => m.Map(It.IsAny<ICollection<StagingApplyingSchool>>()))
-            .Returns(new List<A2BApplicationApplyingSchool>());
+            .Returns(new HashSet<A2BApplicationApplyingSchool>());
         mockKeyPersonMapper
             .Setup(m => m.Map(It.IsAny<ICollection<StagingKeyPerson>>()))
-            .Returns(new List<A2BApplicationKeyPerson>());
+            .Returns(new HashSet<A2BApplicationKeyPerson>());
         
         _mapper = new(mockApplyingSchoolMapper.Object, mockKeyPersonMapper.Object);
     }

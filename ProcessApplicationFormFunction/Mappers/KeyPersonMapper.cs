@@ -6,8 +6,8 @@ namespace ProcessApplicationFormFunction.Mappers;
 
 public class KeyPersonMapper : IMapper<StagingKeyPerson, A2BApplicationKeyPerson>
 {
-    public IEnumerable<A2BApplicationKeyPerson> Map(ICollection<StagingKeyPerson> source) => source
-        .Select(keyPerson => new A2BApplicationKeyPerson()
+    public IEnumerable<A2BApplicationKeyPerson> Map(IEnumerable<StagingKeyPerson> source) => source
+        .Select(keyPerson => new A2BApplicationKeyPerson
         {
             Name = keyPerson.Name,
             KeyPersonTrustee = keyPerson.KeyPersonTrustee,

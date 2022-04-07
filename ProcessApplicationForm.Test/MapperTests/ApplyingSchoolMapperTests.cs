@@ -19,10 +19,10 @@ public class ApplyingSchoolMapperTests
         
         mockSchoolLoan
             .Setup(x => x.Map(It.IsAny<ICollection<StagingSchoolLoan>>()))
-            .Returns(new List<A2BSchoolLoan>());
+            .Returns(new HashSet<A2BSchoolLoan>());
         mockSchoolLease
             .Setup(x => x.Map(It.IsAny<ICollection<StagingSchoolLease>>()))
-            .Returns(new List<A2BSchoolLease>());
+            .Returns(new HashSet<A2BSchoolLease>());
         
         _mapper = new(mockSchoolLease.Object, mockSchoolLoan.Object);
     }

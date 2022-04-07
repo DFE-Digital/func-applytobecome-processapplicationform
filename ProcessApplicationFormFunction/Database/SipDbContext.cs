@@ -25,12 +25,10 @@ public class SipDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        if (optionsBuilder.IsConfigured) return;
+        
         var connectionString = Environment.GetEnvironmentVariable(ConnectionStringName) 
                                ?? throw new ApplicationException(ConfigurationMissing);
-                               
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlServer(connectionString);
-        }
+        optionsBuilder.UseSqlServer(connectionString);
     }
 }

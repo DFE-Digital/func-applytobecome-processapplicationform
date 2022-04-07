@@ -14,10 +14,10 @@ namespace ProcessApplicationFormFunction;
 
 public class ProcessApplicationForm
 {
-    private readonly SqlRepository _repository;
+    private readonly IRepository _repository;
     private readonly IMapper<StagingApplication, A2BApplication> _mapper;
 
-    public ProcessApplicationForm(SqlRepository repository, IMapper<StagingApplication, A2BApplication> mapper)
+    public ProcessApplicationForm(IRepository repository, IMapper<StagingApplication, A2BApplication> mapper)
     {
         _repository = repository;
         _mapper = mapper;
@@ -36,12 +36,13 @@ public class ProcessApplicationForm
 
         try
         {
-            var applicationIds = await _repository.GetApplicationIds();
-            var applications = await _repository.GetApplications(applicationIds);
+            var applicationIds = await _repository.GetA2BApplicationIds();
+            var applications = (await _repository.GetStagingApplications(applicationIds)).ToList();
+            
             if (applications.Any())
             {
-                var result = _mapper.Map(applications);
-                await _repository.AddApplications(applications);
+                var mappedApplications = _mapper.Map(applications);
+                await _repository.AddA2BApplications(mappedApplications);
             }
         }
         catch (Exception e)
@@ -52,6 +53,6 @@ public class ProcessApplicationForm
             await response.WriteStringAsync($"An unexpected internal error has occured ({exceptionId})");
         }
 
-        return await Task.FromResult(response);
+        return response;
     }
 }

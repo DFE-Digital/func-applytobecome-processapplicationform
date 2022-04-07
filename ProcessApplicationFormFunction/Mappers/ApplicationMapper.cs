@@ -17,7 +17,7 @@ public class ApplicationMapper : IMapper<StagingApplication, A2BApplication>
         _applyingSchoolMapper = applyingSchoolMapper;
         _keyPersonMapper = keyPersonMapper;
     }
-    public IEnumerable<A2BApplication> Map(ICollection<StagingApplication> source)
+    public IEnumerable<A2BApplication> Map(IEnumerable<StagingApplication> source)
     {
         return source.Select(stagingApplication => new A2BApplication
         {
@@ -53,8 +53,8 @@ public class ApplicationMapper : IMapper<StagingApplication, A2BApplication>
             TrustApproverEmail = stagingApplication.TrustApproverEmail,
             TrustApproverName = stagingApplication.TrustApproverName,
             TrustId = stagingApplication.TrustId,
-            ApplyingSchools = _applyingSchoolMapper.Map(stagingApplication.ApplyingSchools).ToList(),
-            KeyPersons = _keyPersonMapper.Map(stagingApplication.KeyPersons).ToList(),
+            ApplyingSchools = _applyingSchoolMapper.Map(stagingApplication.ApplyingSchools).ToHashSet(),
+            KeyPersons = _keyPersonMapper.Map(stagingApplication.KeyPersons).ToHashSet()
         });
     }    
 }

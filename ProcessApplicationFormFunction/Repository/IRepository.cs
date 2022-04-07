@@ -6,7 +6,7 @@ namespace ProcessApplicationFormFunction.Repository;
 
 public interface IRepository
 {
-    Task<IEnumerable<string>> GetApplicationIds();
-    Task<IEnumerable<StagingApplication>> GetApplications(IEnumerable<string> applicationIds);
-    Task AddApplications(IEnumerable<A2BApplication> applications);
+    Task<IEnumerable<string>> GetA2BApplicationIds();
+    Task<IEnumerable<StagingApplication>> GetStagingApplications(IEnumerable<string> applicationIds);
+    Task AddA2BApplications(IEnumerable<A2BApplication> applications);
 }

@@ -18,7 +18,7 @@ public class ApplyingSchoolMapper : IMapper<StagingApplyingSchool, A2BApplicatio
         _schoolLoanMapper = schoolLoanMapper;
     }
 
-    public IEnumerable<A2BApplicationApplyingSchool> Map(ICollection<StagingApplyingSchool> source)
+    public IEnumerable<A2BApplicationApplyingSchool> Map(IEnumerable<StagingApplyingSchool> source)
     {
         return source.Select(applyingSchool => new A2BApplicationApplyingSchool
         {
@@ -113,8 +113,8 @@ public class ApplyingSchoolMapper : IMapper<StagingApplyingSchool, A2BApplicatio
             SchoolSupportedFoundationBodyName = applyingSchool.SchoolSupportedFoundationBodyName,
             SchoolSupportGrantFundsPaidTo = applyingSchool.SchoolSupportGrantFundsPaidTo.ConvertFundsPaidTo(),
             
-            SchoolLeases = _schoolLeaseMapper.Map(applyingSchool.SchoolLeases).ToList(),
-            SchoolLoans = _schoolLoanMapper.Map(applyingSchool.SchoolLoans).ToList()
+            SchoolLeases = _schoolLeaseMapper.Map(applyingSchool.SchoolLeases).ToHashSet(),
+            SchoolLoans = _schoolLoanMapper.Map(applyingSchool.SchoolLoans).ToHashSet()
         });
     }
 }
