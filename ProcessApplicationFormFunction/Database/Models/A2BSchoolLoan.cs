@@ -18,5 +18,6 @@ namespace ProcessApplicationFormFunction.Database.Models
         public string SchoolLoanSchedule {get; set;}
         
         public int ApplyingSchoolId { get; set; }
+        public virtual A2BApplicationApplyingSchool A2BApplicationApplyingSchool { get; set; }
     }
 }

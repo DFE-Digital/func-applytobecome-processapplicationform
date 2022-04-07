@@ -21,6 +21,7 @@ public class ApplicationMapper : IMapper<StagingApplication, A2BApplication>
     {
         return source.Select(stagingApplication => new A2BApplication
         {
+            ApplicationId = stagingApplication.Name,
             ApplicationLeadAuthorId = stagingApplication.ApplicationLeadAuthorId,
             ApplicationLeadAuthorName = stagingApplication.ApplicationLeadAuthorName,
             ApplicationLeadEmail = stagingApplication.ApplicationLeadEmail,

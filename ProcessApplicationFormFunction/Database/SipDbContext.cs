@@ -12,6 +12,7 @@ public class SipDbContext : DbContext
     public SipDbContext(DbContextOptions<SipDbContext> options) : base(options) {}
 
     public virtual DbSet<StagingApplication> DynamicsApplications { get; set; }
+
     public virtual DbSet<A2BApplication> A2BApplications { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

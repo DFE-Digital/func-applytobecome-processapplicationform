@@ -32,7 +32,7 @@ public class SqlRepository : IRepository
             .ThenInclude(ap => ap.SchoolLoans)
             .Include(da => da.ApplyingSchools)
             .ThenInclude(ap => ap.SchoolLeases)
-            .Where(ap => !existingApplicationIds.Contains(ap.ApplicationId))
+            .Where(ap => !existingApplicationIds.Contains(ap.Name))
             .AsSingleQuery()
             .ToListAsync();
 }

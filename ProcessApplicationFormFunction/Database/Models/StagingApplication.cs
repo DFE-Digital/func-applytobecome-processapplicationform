@@ -12,7 +12,6 @@ public record StagingApplication
     public Guid DynamicsApplicationId { get; init; }
     
     public string Name {get; init;}
-    public string ApplicationId {get; init;}
     public string FormTrustProposedNameOfTrust {get; init;}
     public bool? ApplicationSubmitted {get; init;}
     public string ApplicationLeadAuthorId {get; init;}
@@ -46,6 +45,9 @@ public record StagingApplication
     public string TrustId {get; init;}
     public string ApplicationStatusId {get; init;}
 
+    [ForeignKey(nameof(DynamicsApplicationId))]
     public virtual ICollection<StagingKeyPerson> KeyPersons { get; init; }
+    
+    [ForeignKey(nameof(DynamicsApplicationId))]
     public virtual ICollection<StagingApplyingSchool> ApplyingSchools { get; init; }
 };

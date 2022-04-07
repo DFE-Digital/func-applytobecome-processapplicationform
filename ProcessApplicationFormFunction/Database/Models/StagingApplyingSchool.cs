@@ -67,7 +67,7 @@ public record StagingApplyingSchool
 		
 	[Column(TypeName = "decimal(18,2)")]
 	public decimal SchoolPFYCapitalForward {get;init;}
-    public int? SchoolPFYCapitalSurplusOrDeficit { get; set; }
+    public int? SchoolPFYCapitalForwardSurplusOrDeficit { get; set; }
     public string SchoolPFYCapitalForwardStatusExplained {get;init;}
 		
 	[Column(TypeName = "decimal(18,2)")]
@@ -77,12 +77,12 @@ public record StagingApplyingSchool
 		
 	[Column(TypeName = "decimal(18,2)")]
 	public decimal SchoolCFYCapitalForward {get;init;}
-    public int? SchoolCFYCapitalSurplusOrDeficit { get; set; }
+    public int? SchoolCFYCapitalForwardSurplusOrDeficit { get; set; }
     public string SchoolCFYCapitalForwardStatusExplained {get;init;}
 		
 	[Column(TypeName = "decimal(18,2)")]
 	public decimal SchoolNFYRevenue {get;init;}
-    public int? SchoolNFYCapitalSurplusOrDeficit { get; set; }
+    public int? SchoolNFYCapitalForwardSurplusOrDeficit { get; set; }
     public string SchoolNFYRevenueStatusExplained {get;init;}
 		
 	[Column(TypeName = "decimal(18,2)")]
@@ -119,6 +119,9 @@ public record StagingApplyingSchool
 	public int? SchoolSupportGrantFundsPaidTo {get;init;}
 	public string SchoolDeclarationSignedByName {get;init;}
 	
+	[ForeignKey(nameof(DynamicsApplyingSchoolId))]
 	public virtual ICollection<StagingSchoolLease> SchoolLeases { get; init; }
+	
+	[ForeignKey(nameof(DynamicsApplyingSchoolId))]
 	public virtual ICollection<StagingSchoolLoan> SchoolLoans { get; init; }
 }

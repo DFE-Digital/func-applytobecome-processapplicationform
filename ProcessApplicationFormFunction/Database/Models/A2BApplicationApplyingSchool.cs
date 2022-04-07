@@ -126,5 +126,6 @@ namespace ProcessApplicationFormFunction.Database.Models
         public virtual ICollection<A2BSchoolLoan> SchoolLoans { get; set; }
         
         public string ApplicationId { get; set; }
+        public virtual A2BApplication A2BApplication { get; set; }
     }
 }

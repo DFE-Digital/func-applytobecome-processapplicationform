@@ -60,12 +60,12 @@ public class SqlRepositoryTests
         await context.SaveChangesAsync();
 
         var existingApplicationIds = applications
-            .OrderBy(a => a.ApplicationId)
-            .Select(a => a.ApplicationId)
+            .OrderBy(a => a.Name)
+            .Select(a => a.Name)
             .Take(existingCount);
         
         var expected = applications
-            .OrderBy(a => a.ApplicationId)
+            .OrderBy(a => a.Name)
             .Skip(existingCount);
         
         var results = (await repository.GetStagingApplications(existingApplicationIds)).ToList();
