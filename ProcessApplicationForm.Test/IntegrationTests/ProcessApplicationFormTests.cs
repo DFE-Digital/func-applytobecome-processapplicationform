@@ -77,7 +77,38 @@ public class ProcessApplicationFormTests
 
         result.StatusCode.Should().Be(HttpStatusCode.OK);
     }
-    
+
+    [Fact]
+    public async Task ProcessApplicationForm_WhenNoApplicationsToAdd_ReturnsOk_AndShouldNotCallMapperOrAddRepositoryMethods()
+    {
+        var stagingApplications = Array.Empty<StagingApplication>;
+        var a2BApplications = Array.Empty<A2BApplication>;
+
+        _mockRepository
+            .Setup(r => r.GetA2BApplicationIds())
+            .ReturnsAsync(Array.Empty<string>);
+
+        _mockRepository
+            .Setup(r => r.GetStagingApplications(It.IsAny<IEnumerable<string>>()))
+            .ReturnsAsync(stagingApplications);
+
+        _mockRepository
+            .Setup(r => r.AddA2BApplications(It.IsAny<IEnumerable<A2BApplication>>()));
+
+        _mockMapper
+            .Setup(r => r.Map(It.IsAny<IEnumerable<StagingApplication>>()));
+
+        ProcessApplicationFormFunction.ProcessApplicationForm function = new(_mockRepository.Object, _mockMapper.Object);
+
+        var result = await function.Process(_mockRequest.Object, _mockContext.Object);
+
+        
+        _mockMapper.Verify(m => m.Map(It.IsAny<IEnumerable<StagingApplication>>()), Times.Never);
+        _mockRepository.Verify(r => r.AddA2BApplications(It.IsAny<IEnumerable<A2BApplication>>()), Times.Never);
+
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
     [Fact]
     public async Task ProcessApplicationForm_WhenNotSuccessful_ReturnsInternalServerError()
     {
