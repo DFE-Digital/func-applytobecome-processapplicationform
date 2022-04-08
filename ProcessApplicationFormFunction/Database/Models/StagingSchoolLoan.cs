@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProcessApplicationFormFunction.Database.Models;
@@ -6,6 +7,7 @@ namespace ProcessApplicationFormFunction.Database.Models;
 [Table("stg_schoolloan", Schema = "a2b")]
 public record StagingSchoolLoan
 {
+    [Key]
     public Guid DynamicsSchoolLoanId {get;set;}
     public Guid DynamicsApplyingSchoolId {get;set;}
     

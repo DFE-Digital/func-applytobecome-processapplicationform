@@ -8,7 +8,6 @@ namespace ProcessApplicationFormFunction.Database.Models;
 public record StagingKeyPerson
 {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid DynamicsKeyPersonId {get;set;}
     
     public Guid DynamicsApplicationId {get;set;}

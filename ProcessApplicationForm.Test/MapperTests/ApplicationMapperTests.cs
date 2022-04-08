@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using Moq;
+using ProcessApplicationForm.Test.Data;
 using ProcessApplicationFormFunction.Database.Models;
 using ProcessApplicationFormFunction.Mappers;
 using Xunit;
@@ -8,33 +10,41 @@ namespace ProcessApplicationForm.Test.MapperTests;
 
 public class ApplicationMapperTests
 {
-    private readonly Mock<IMapper<StagingApplyingSchool, A2BApplicationApplyingSchool>> _mockApplyingSchoolMapper;
-    private readonly Mock<IMapper<StagingKeyPerson, A2BApplicationKeyPerson>> _mockKeyPersonMapper;
-    
+    private readonly ApplicationMapper _mapper;
 
     public ApplicationMapperTests()
     {
-        _mockApplyingSchoolMapper = new();
-        _mockApplyingSchoolMapper
+        Mock<IMapper<StagingApplyingSchool, A2BApplicationApplyingSchool>> mockApplyingSchoolMapper = new();
+        Mock<IMapper<StagingKeyPerson, A2BApplicationKeyPerson>> mockKeyPersonMapper = new();
+        
+        mockApplyingSchoolMapper
             .Setup(m => m.Map(It.IsAny<ICollection<StagingApplyingSchool>>()))
-            .Returns(new List<A2BApplicationApplyingSchool>());
-
-        _mockKeyPersonMapper = new();
-        _mockKeyPersonMapper
+            .Returns(new HashSet<A2BApplicationApplyingSchool>());
+        mockKeyPersonMapper
             .Setup(m => m.Map(It.IsAny<ICollection<StagingKeyPerson>>()))
-            .Returns(new List<A2BApplicationKeyPerson>());
+            .Returns(new HashSet<A2BApplicationKeyPerson>());
+        
+        _mapper = new(mockApplyingSchoolMapper.Object, mockKeyPersonMapper.Object);
     }
     
     [Fact]
     public void Map_WhenGivenCollectionOfStagingApplication_ShouldReturnCollectionOfTypeA2BApplication()
     {
-        IMapper<StagingApplication, A2BApplication> mapper = 
-            new ApplicationMapper(_mockApplyingSchoolMapper.Object, _mockKeyPersonMapper.Object);
+        List<StagingApplication> stagingApplications =new() {TestData.StagingApplicationData};
+
+        var result = _mapper.Map(stagingApplications);
+
+        result.Should().BeAssignableTo<IEnumerable<A2BApplication>>();
+    }
+
+    [Fact]
+    public void Map_WhenGivenCollectionOfStagingApplication_ShouldReturnMappedCollectionOfA2BApplication()
+    {
+        List<StagingApplication> stagingApplications = new() {TestData.StagingApplicationData};
+        List<A2BApplication> expected = new() {TestData.A2BApplicationData};
         
-        List<StagingApplication> source = new();
+        var result = _mapper.Map(stagingApplications);
 
-        var result = mapper.Map(source);
-
-        Assert.IsAssignableFrom<IEnumerable<A2BApplication>>(result);
+        result.Should().BeEquivalentTo(expected);
     }
 }
