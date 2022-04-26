@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
+using ProcessApplicationFormFunction;
 using ProcessApplicationFormFunction.Database.Models;
 using ProcessApplicationFormFunction.Extensions;
 
@@ -19,7 +20,11 @@ public static class TestData
     public static A2BApplicationKeyPerson A2BApplicationKeyPersonData { get; }
     public static A2BSchoolLoan A2BSchoolLoanData { get; }
     public static A2BSchoolLease A2BSchoolLeaseData { get; }
-    
+
+    public static AcademyConversionProject AcademyConversionProjectData { get; }
+
+    public static Establishment EstablishmentData { get; }
+
     static TestData()
     {
         var fixture = new Fixture();
@@ -57,7 +62,8 @@ public static class TestData
             FormTrustPlanForGrowth = StagingApplicationData.FormTrustPlanForGrowth,
             FormTrustPlansForNoGrowth = StagingApplicationData.FormTrustPlansForNoGrowth,
             FormTrustProposedNameOfTrust = StagingApplicationData.FormTrustProposedNameOfTrust,
-            FormTrustReasonApprovalToConvertAsSat = StagingApplicationData.FormTrustReasonApprovalToConvertAsSat.ConvertDynamicsIntBool(),
+            FormTrustReasonApprovalToConvertAsSat =
+                StagingApplicationData.FormTrustReasonApprovalToConvertAsSat.ConvertDynamicsIntBool(),
             FormTrustReasonApprovedPerson = StagingApplicationData.FormTrustReasonApprovedPerson,
             FormTrustReasonForming = StagingApplicationData.FormTrustReasonForming,
             FormTrustReasonFreedom = StagingApplicationData.FormTrustReasonFreedom,
@@ -104,39 +110,52 @@ public static class TestData
             SchoolNFYCapitalForwardSurplusOrDeficit = 907660000,
             SchoolNFYRevenueSurplusOrDeficit = 907660000,
             SchoolSupportGrantFundsPaidTo = 907660000,
-            SchoolConversionContactRole = 90760000
+            SchoolConversionContactRole = 90760000,
+            Urn = 1
         };
 
         A2BApplicationApplyingSchoolData = new()
         {
             Name = StagingApplyingSchoolData.Name,
-            SchoolAddFurtherInformation = StagingApplyingSchoolData.SchoolAddFurtherInformation.ConvertDynamicsIntBool(),
-            SchoolAdEqualitiesImpactAssessment = StagingApplyingSchoolData.SchoolAdEqualitiesImpactAssessment.ConvertDynamicsIntBool(),
-            SchoolAdEqualitiesImpactAssessmentDetails = StagingApplyingSchoolData.SchoolAdEqualitiesImpactAssessmentDetails,
+            SchoolAddFurtherInformation =
+                StagingApplyingSchoolData.SchoolAddFurtherInformation.ConvertDynamicsIntBool(),
+            SchoolAdEqualitiesImpactAssessment =
+                StagingApplyingSchoolData.SchoolAdEqualitiesImpactAssessment.ConvertDynamicsIntBool(),
+            SchoolAdEqualitiesImpactAssessmentDetails =
+                StagingApplyingSchoolData.SchoolAdEqualitiesImpactAssessmentDetails,
             SchoolAdFeederSchools = StagingApplyingSchoolData.SchoolAdFeederSchools,
-            SchoolAdInspectedButReportNotPublished = StagingApplyingSchoolData.SchoolAdInspectedButReportNotPublished.ConvertDynamicsIntBool(),
-            SchoolAdInspectedReportNotPublishedExplain = StagingApplyingSchoolData.SchoolAdInspectedReportNotPublishedExplain,
+            SchoolAdInspectedButReportNotPublished = StagingApplyingSchoolData.SchoolAdInspectedButReportNotPublished
+                .ConvertDynamicsIntBool(),
+            SchoolAdInspectedReportNotPublishedExplain =
+                StagingApplyingSchoolData.SchoolAdInspectedReportNotPublishedExplain,
             SchoolAdSafeguarding = StagingApplyingSchoolData.SchoolAdSafeguarding.ConvertDynamicsIntBool(),
             SchoolAdSafeguardingExplained = StagingApplyingSchoolData.SchoolAdSafeguardingExplained,
             SchoolAdSchoolContributionToTrust = StagingApplyingSchoolData.SchoolAdSchoolContributionToTrust,
-            SchoolBuildLandFutureProgramme = StagingApplyingSchoolData.SchoolBuildLandFutureProgramme.ConvertDynamicsIntBool(),
+            SchoolBuildLandFutureProgramme =
+                StagingApplyingSchoolData.SchoolBuildLandFutureProgramme.ConvertDynamicsIntBool(),
             SchoolBuildLandGrants = StagingApplyingSchoolData.SchoolBuildLandGrants.ConvertDynamicsIntBool(),
             SchoolBuildLandGrantsBody = StagingApplyingSchoolData.SchoolBuildLandGrantsBody,
             SchoolBuildLandOwnerExplained = StagingApplyingSchoolData.SchoolBuildLandOwnerExplained,
             SchoolBuildLandPFIScheme = StagingApplyingSchoolData.SchoolBuildLandPFIScheme.ConvertDynamicsIntBool(),
             SchoolBuildLandPFISchemeType = StagingApplyingSchoolData.SchoolBuildLandPFISchemeType,
-            SchoolBuildLandPriorityBuildingProgramme = StagingApplyingSchoolData.SchoolBuildLandPriorityBuildingProgramme.ConvertDynamicsIntBool(),
-            SchoolBuildLandSharedFacilities = StagingApplyingSchoolData.SchoolBuildLandSharedFacilities.ConvertDynamicsIntBool(),
-            SchoolBuildLandSharedFacilitiesExplained = StagingApplyingSchoolData.SchoolBuildLandSharedFacilitiesExplained,
-            SchoolBuildLandWorksPlanned = StagingApplyingSchoolData.SchoolBuildLandWorksPlanned.ConvertDynamicsIntBool(),
+            SchoolBuildLandPriorityBuildingProgramme = StagingApplyingSchoolData
+                .SchoolBuildLandPriorityBuildingProgramme.ConvertDynamicsIntBool(),
+            SchoolBuildLandSharedFacilities =
+                StagingApplyingSchoolData.SchoolBuildLandSharedFacilities.ConvertDynamicsIntBool(),
+            SchoolBuildLandSharedFacilitiesExplained =
+                StagingApplyingSchoolData.SchoolBuildLandSharedFacilitiesExplained,
+            SchoolBuildLandWorksPlanned =
+                StagingApplyingSchoolData.SchoolBuildLandWorksPlanned.ConvertDynamicsIntBool(),
             SchoolBuildLandWorksPlannedDate = StagingApplyingSchoolData.SchoolBuildLandWorksPlannedDate,
             SchoolBuildLandWorksPlannedExplained = StagingApplyingSchoolData.SchoolBuildLandWorksPlannedExplained,
             SchoolCapacityAssumptions = StagingApplyingSchoolData.SchoolCapacityAssumptions,
-            SchoolCapacityPublishedAdmissionsNumber = StagingApplyingSchoolData.SchoolCapacityPublishedAdmissionsNumber.ToIntOrNull(),
+            SchoolCapacityPublishedAdmissionsNumber =
+                StagingApplyingSchoolData.SchoolCapacityPublishedAdmissionsNumber.ToIntOrNull(),
             SchoolCapacityYear1 = StagingApplyingSchoolData.SchoolCapacityYear1,
             SchoolCapacityYear2 = StagingApplyingSchoolData.SchoolCapacityYear2,
             SchoolCapacityYear3 = StagingApplyingSchoolData.SchoolCapacityYear3,
-            SchoolConsultationStakeholders = StagingApplyingSchoolData.SchoolConsultationStakeholders.ConvertDynamicsIntBool(),
+            SchoolConsultationStakeholders =
+                StagingApplyingSchoolData.SchoolConsultationStakeholders.ConvertDynamicsIntBool(),
             SchoolConsultationStakeholdersConsult = StagingApplyingSchoolData.SchoolConsultationStakeholdersConsult,
             SchoolConversionApproverContactEmail = StagingApplyingSchoolData.SchoolConversionApproverContactEmail,
             SchoolConversionApproverContactName = StagingApplyingSchoolData.SchoolConversionApproverContactName,
@@ -148,25 +167,31 @@ public static class TestData
             SchoolConversionContactHeadEmail = StagingApplyingSchoolData.SchoolConversionContactChairEmail,
             SchoolConversionContactHeadName = StagingApplyingSchoolData.SchoolConversionContactHeadName,
             SchoolConversionContactHeadTel = StagingApplyingSchoolData.SchoolConversionContactChairTel,
-            SchoolConversionContactRole = StagingApplyingSchoolData.SchoolConversionContactRole.ConvertApplicationRole(),
+            SchoolConversionContactRole =
+                StagingApplyingSchoolData.SchoolConversionContactRole.ConvertApplicationRole(),
             SchoolConversionMainContactOtherRole = StagingApplyingSchoolData.SchoolConversionMainContactOtherRole,
             SchoolConversionMainContactOtherEmail = StagingApplyingSchoolData.SchoolConversionMainContactOtherEmail,
             SchoolConversionMainContactOtherName = StagingApplyingSchoolData.SchoolConversionMainContactOtherName,
-            SchoolConversionMainContactOtherTelephone = StagingApplyingSchoolData.SchoolConversionMainContactOtherTelephone,
+            SchoolConversionMainContactOtherTelephone =
+                StagingApplyingSchoolData.SchoolConversionMainContactOtherTelephone,
             SchoolConversionReasonsForJoining = StagingApplyingSchoolData.SchoolConversionReasonsForJoining,
-            SchoolConversionTargetDateDifferent = StagingApplyingSchoolData.SchoolConversionTargetDateDifferent.ConvertDynamicsIntBool(),
+            SchoolConversionTargetDateDifferent =
+                StagingApplyingSchoolData.SchoolConversionTargetDateDifferent.ConvertDynamicsIntBool(),
             SchoolConversionTargetDateDate = StagingApplyingSchoolData.SchoolConversionTargetDateDate,
             SchoolConversionTargetDateExplained = StagingApplyingSchoolData.SchoolConversionTargetDateExplained,
             SchoolDeclarationBodyAgree = StagingApplyingSchoolData.SchoolDeclarationBodyAgree.ConvertDynamicsIntBool(),
             SchoolDeclarationSignedByEmail = StagingApplyingSchoolData.SchoolDeclarationSignedByEmail,
             SchoolDeclarationSignedById = StagingApplyingSchoolData.SchoolDeclarationSignedById,
             SchoolDeclarationSignedByName = StagingApplyingSchoolData.SchoolDeclarationSignedByName,
-            SchoolDeclarationTeacherChair = StagingApplyingSchoolData.SchoolDeclarationTeacherChair.ConvertDynamicsIntBool(),
+            SchoolDeclarationTeacherChair =
+                StagingApplyingSchoolData.SchoolDeclarationTeacherChair.ConvertDynamicsIntBool(),
             SchoolFaithSchool = StagingApplyingSchoolData.SchoolFaithSchool.ConvertDynamicsIntBool(),
             SchoolFaithSchoolDioceseName = StagingApplyingSchoolData.SchoolFaithSchoolDioceseName,
-            SchoolFinancialInvestigations = StagingApplyingSchoolData.SchoolFinancialInvestigations.ConvertDynamicsIntBool(),
+            SchoolFinancialInvestigations =
+                StagingApplyingSchoolData.SchoolFinancialInvestigations.ConvertDynamicsIntBool(),
             SchoolFinancialInvestigationsExplain = StagingApplyingSchoolData.SchoolFinancialInvestigationsExplain,
-            SchoolFinancialInvestigationsTrustAware = StagingApplyingSchoolData.SchoolFinancialInvestigationsTrustAware.ConvertDynamicsIntBool(),
+            SchoolFinancialInvestigationsTrustAware = StagingApplyingSchoolData.SchoolFinancialInvestigationsTrustAware
+                .ConvertDynamicsIntBool(),
             SchoolFurtherInformation = StagingApplyingSchoolData.SchoolFurtherInformation,
             SchoolLaClosurePlans = StagingApplyingSchoolData.SchoolLaClosurePlans.ConvertDynamicsIntBool(),
             SchoolLaClosurePlansExplain = StagingApplyingSchoolData.SchoolLaClosurePlansExplain,
@@ -174,36 +199,44 @@ public static class TestData
             SchoolLaReorganizationExplain = StagingApplyingSchoolData.SchoolLaReorganizationExplain,
             SchoolPFYCapitalForward = StagingApplyingSchoolData.SchoolPFYCapitalForward,
             SchoolPFYCapitalForwardStatusExplained = StagingApplyingSchoolData.SchoolPFYCapitalForwardStatusExplained,
-            SchoolPFYCapitalIsDeficit = StagingApplyingSchoolData.SchoolPFYCapitalForwardSurplusOrDeficit.ConvertSurplusOrDeficit(),
+            SchoolPFYCapitalIsDeficit =
+                StagingApplyingSchoolData.SchoolPFYCapitalForwardSurplusOrDeficit.ConvertSurplusOrDeficit(),
             SchoolPFYEndDate = StagingApplyingSchoolData.SchoolPFYEndDate,
             SchoolPFYRevenue = StagingApplyingSchoolData.SchoolPFYRevenue,
-            SchoolPFYRevenueIsDeficit = StagingApplyingSchoolData.SchoolPFYRevenueSurplusOrDeficit.ConvertSurplusOrDeficit(),
+            SchoolPFYRevenueIsDeficit =
+                StagingApplyingSchoolData.SchoolPFYRevenueSurplusOrDeficit.ConvertSurplusOrDeficit(),
             SchoolPFYRevenueStatusExplained = StagingApplyingSchoolData.SchoolPFYRevenueStatusExplained,
             SchoolCFYCapitalForward = StagingApplyingSchoolData.SchoolCFYCapitalForward,
             SchoolCFYCapitalForwardStatusExplained = StagingApplyingSchoolData.SchoolCFYCapitalForwardStatusExplained,
-            SchoolCFYCapitalIsDeficit = StagingApplyingSchoolData.SchoolCFYCapitalForwardSurplusOrDeficit.ConvertSurplusOrDeficit(),
+            SchoolCFYCapitalIsDeficit =
+                StagingApplyingSchoolData.SchoolCFYCapitalForwardSurplusOrDeficit.ConvertSurplusOrDeficit(),
             SchoolCFYEndDate = StagingApplyingSchoolData.SchoolCFYEndDate,
             SchoolCFYRevenue = StagingApplyingSchoolData.SchoolCFYRevenue,
-            SchoolCFYRevenueIsDeficit = StagingApplyingSchoolData.SchoolCFYRevenueSurplusOrDeficit.ConvertSurplusOrDeficit(),
+            SchoolCFYRevenueIsDeficit =
+                StagingApplyingSchoolData.SchoolCFYRevenueSurplusOrDeficit.ConvertSurplusOrDeficit(),
             SchoolCFYRevenueStatusExplained = StagingApplyingSchoolData.SchoolCFYRevenueStatusExplained,
             SchoolNFYCapitalForward = StagingApplyingSchoolData.SchoolNFYCapitalForward,
             SchoolNFYCapitalForwardStatusExplained = StagingApplyingSchoolData.SchoolNFYCapitalForwardStatusExplained,
-            SchoolNFYCapitalIsDeficit = StagingApplyingSchoolData.SchoolNFYCapitalForwardSurplusOrDeficit.ConvertSurplusOrDeficit(),
+            SchoolNFYCapitalIsDeficit =
+                StagingApplyingSchoolData.SchoolNFYCapitalForwardSurplusOrDeficit.ConvertSurplusOrDeficit(),
             SchoolNFYEndDate = StagingApplyingSchoolData.SchoolNFYEndDate,
             SchoolNFYRevenue = StagingApplyingSchoolData.SchoolNFYRevenue,
-            SchoolNFYRevenueIsDeficit = StagingApplyingSchoolData.SchoolNFYRevenueSurplusOrDeficit.ConvertSurplusOrDeficit(),
+            SchoolNFYRevenueIsDeficit =
+                StagingApplyingSchoolData.SchoolNFYRevenueSurplusOrDeficit.ConvertSurplusOrDeficit(),
             SchoolNFYRevenueStatusExplained = StagingApplyingSchoolData.SchoolNFYRevenueStatusExplained,
             SchoolPartOfFederation = StagingApplyingSchoolData.SchoolPartOfFederation.ConvertDynamicsIntBool(),
             SchoolSACREExemption = StagingApplyingSchoolData.SchoolSACREExemption.ConvertDynamicsIntBool(),
             SchoolSACREExemptionEndDate = StagingApplyingSchoolData.SchoolSACREExemptionEndDate,
             SchoolSupportedFoundation = StagingApplyingSchoolData.SchoolSupportedFoundation.ConvertDynamicsIntBool(),
             SchoolSupportedFoundationBodyName = StagingApplyingSchoolData.SchoolSupportedFoundationBodyName,
-            SchoolSupportGrantFundsPaidTo = StagingApplyingSchoolData.SchoolSupportGrantFundsPaidTo.ConvertFundsPaidTo(),
+            SchoolSupportGrantFundsPaidTo =
+                StagingApplyingSchoolData.SchoolSupportGrantFundsPaidTo.ConvertFundsPaidTo(),
             FoundationEvidenceDocumentLink = null,
             DiocesePermissionEvidenceDocumentLink = null,
             GoverningBodyConsentEvidenceDocumentLink = null,
             SchoolLeases = new HashSet<A2BSchoolLease>(),
-            SchoolLoans = new HashSet<A2BSchoolLoan>()
+            SchoolLoans = new HashSet<A2BSchoolLoan>(),
+            Urn = 1
         };
 
         StagingKeyPersonData = fixture.Create<StagingKeyPerson>();
@@ -244,6 +277,37 @@ public static class TestData
             SchoolLoanPurpose = StagingSchoolLoanData.SchoolLoanPurpose,
             SchoolLoanSchedule = StagingSchoolLoanData.SchoolLoanSchedule
         };
+
+        EstablishmentData = fixture.Create<Establishment>();
+
+        AcademyConversionProjectData = fixture.Create<AcademyConversionProject>() with
+        {
+            Urn = A2BApplicationApplyingSchoolData.Urn,
+            SchoolName = A2BApplicationApplyingSchoolData.Name,
+            LocalAuthority = EstablishmentData.LaName,
+            ApplicationReferenceNumber = A2BApplicationData.ApplicationId,
+            ProjectStatus = "Converter Pre-AO (C)",
+            ApplicationReceivedDate = DateTime.MinValue,
+            OpeningDate = DateTime.MinValue.AddMonths(6),
+            TrustReferenceNumber = A2BApplicationData.TrustId,
+            AcademyTypeAndRoute = "Converter",
+            ConversionSupportGrantAmount = 25000,
+            SchoolPhase = EstablishmentData.PhaseOfEducationName,
+            AgeRange = $"{EstablishmentData.StatutoryLowAge}-{EstablishmentData.StatutoryHighAge}",
+            SchoolType = EstablishmentData.TypeOfEstablishmentName,
+            ActualPupilNumbers = EstablishmentData.NumberOfPupils.ToIntOrNull(),
+            Capacity = EstablishmentData.SchoolCapacity.ToIntOrNull(),
+            PercentageFreeSchoolMeals = EstablishmentData.PercentageFsm.ToDecimalOrNull(),
+            DiocesanTrust = EstablishmentData.DioceseName,
+            RevenueCarryForwardAtEndMarchCurrentYear = A2BApplicationApplyingSchoolData.SchoolCFYRevenue,
+            ProjectedRevenueBalanceAtEndMarchNextYear = A2BApplicationApplyingSchoolData.SchoolNFYRevenue,
+            CapitalCarryForwardAtEndMarchCurrentYear = A2BApplicationApplyingSchoolData.SchoolCFYCapitalForward,
+            CapitalCarryForwardAtEndMarchNextYear = A2BApplicationApplyingSchoolData.SchoolNFYCapitalForward,
+        };
+
+
+
+
     }
 
     public static IEnumerable<A2BApplication> GenerateCompleteA2BApplications(int count) =>
@@ -269,6 +333,7 @@ public static class TestData
                     {
                         ApplicationId = applicationId,
                         ApplyingSchoolId = id,
+                        Urn = id,
                         SchoolLeases = new HashSet<A2BSchoolLease>
                         {
                             A2BSchoolLeaseData with
@@ -314,6 +379,7 @@ public static class TestData
                     {
                         DynamicsApplicationId = dynamicsApplicationId,
                         DynamicsApplyingSchoolId = dynamicsApplyingSchoolId,
+                        Urn = id,
                         SchoolLeases = new HashSet<StagingSchoolLease>
                         {
                             StagingSchoolLeaseData with
@@ -333,5 +399,17 @@ public static class TestData
                     }
                 }
             };
+        });
+
+    public static IEnumerable<AcademyConversionProject> GenerateCompleteAcademyConversionProjects(int count) =>
+        Enumerable.Range(1, count).Select(id => AcademyConversionProjectData with
+        {
+            Id = id
+        });
+
+    public static IEnumerable<Establishment> GenerateCompleteEstablishments(int count) =>
+        Enumerable.Range(1, count).Select(id => EstablishmentData with
+        {
+            Urn = id
         });
 }

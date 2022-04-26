@@ -19,6 +19,12 @@ public class SqlRepository : IRepository
         await _context.SaveChangesAsync();
     }
 
+    public async Task AddAcademyConversionProjects(IEnumerable<AcademyConversionProject> projects)
+    {
+        _context.AcademyConversionProjects.AddRange(projects);
+        await _context.SaveChangesAsync();
+    }
+
     public async Task<IEnumerable<string>> GetA2BApplicationIds() =>
         await _context.A2BApplications
             .Select(app => app.ApplicationId)
@@ -34,6 +40,11 @@ public class SqlRepository : IRepository
             .ThenInclude(ap => ap.SchoolLeases)
             .Where(ap => !existingApplicationIds.Contains(ap.Name))
             .AsSingleQuery()
+            .ToListAsync();
+
+    public async Task<IEnumerable<Establishment>> GetEstablishments(IEnumerable<int> urns) =>
+        await _context.Establishments
+            .AsNoTracking()
             .ToListAsync();
 }
 

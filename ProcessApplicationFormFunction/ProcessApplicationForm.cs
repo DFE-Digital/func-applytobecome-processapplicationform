@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -11,15 +12,27 @@ using ProcessApplicationFormFunction.Repository;
 
 namespace ProcessApplicationFormFunction;
 
+public record AcademyConversionProjectInformation
+{
+    public A2BApplication Application { get; init; }
+    public IEnumerable<Establishment> Establishments { get; init; } 
+}
+
 public class ProcessApplicationForm
 {
     private readonly IRepository _repository;
-    private readonly IMapper<StagingApplication, A2BApplication> _mapper;
+    private readonly IMapper<StagingApplication, A2BApplication> _applicationMapper;
+    private readonly IMapper<A2BApplication, AcademyConversionProject> _projectMapper;
 
-    public ProcessApplicationForm(IRepository repository, IMapper<StagingApplication, A2BApplication> mapper)
+    public ProcessApplicationForm(
+        IRepository repository, 
+        IMapper<StagingApplication, A2BApplication> applicationMapper,
+        IMapper<A2BApplication, AcademyConversionProject> projectMapper
+        )
     {
         _repository = repository;
-        _mapper = mapper;
+        _applicationMapper = applicationMapper;
+        _projectMapper = projectMapper;
     }
 
     [Function(nameof(ProcessApplicationForm))]
@@ -37,11 +50,32 @@ public class ProcessApplicationForm
         {
             var applicationIds = await _repository.GetA2BApplicationIds();
             var applications = (await _repository.GetStagingApplications(applicationIds)).ToList();
+
+            var urns = applications
+                .SelectMany(ma => ma.ApplyingSchools)
+                .Select(s => s.Urn);
+   
+            var establishments = (await _repository.GetEstablishments(urns)).ToList();
             
             if (applications.Any())
             {
-                var mappedApplications = _mapper.Map(applications);
+                var mappedApplications = _applicationMapper.Map(applications).ToList();
                 await _repository.AddA2BApplications(mappedApplications);
+
+                var projectData = mappedApplications.Select(application =>
+                {
+                    var mappedUrns = application.ApplyingSchools.Select(a => a.Urn);
+                    var selectedEstablishments = establishments.Where(e => mappedUrns.Contains(e.Urn));
+
+                    return new AcademyConversionProjectInformation
+                    {
+                        Application = application,
+                        Establishments = selectedEstablishments
+                    };
+                });
+                
+                var mappedProjects = _projectMapper.Map(mappedApplications);
+                await _repository.AddAcademyConversionProjects(mappedProjects);
             }
         }
         catch (Exception e)

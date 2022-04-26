@@ -147,4 +147,36 @@ public class SqlRepositoryTests
         results.Should().HaveCount(count);
         results.Should().BeEquivalentTo(applications);
     }
+    
+    [Fact]
+    public async Task AddAcademyConversionProjects_WithEmptyCollectionOfAcademyConversionProjects_ShouldNotCreateAnyRecordsInDatabase()
+    {
+        var context = CreateSingleTestContext();
+        SqlRepository repository = new(context);
+
+        await repository.AddAcademyConversionProjects(new HashSet<AcademyConversionProject>());
+
+        var expected = context.AcademyConversionProjects;
+
+        expected.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task AddAcademyConversionProjects_WithCollectionOfAcademyConversionProjects_ShouldCreateThoseRecordsInDatabase()
+    {
+        var context = CreateSingleTestContext();
+        SqlRepository repository = new(context);
+
+        const int count = 10;
+        
+        var projects = TestData.GenerateCompleteAcademyConversionProjects(count).ToList();
+
+        await repository.AddAcademyConversionProjects(projects);
+
+        var results = await context.AcademyConversionProjects
+            .ToListAsync();
+
+        results.Should().HaveCount(count);
+        results.Should().BeEquivalentTo(projects);
+    }
 }

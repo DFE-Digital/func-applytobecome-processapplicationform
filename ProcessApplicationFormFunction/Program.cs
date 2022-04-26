@@ -16,6 +16,7 @@ var host = new HostBuilder()
         services.AddSingleton<IMapper<StagingApplyingSchool, A2BApplicationApplyingSchool>, ApplyingSchoolMapper>();
         services.AddSingleton<IMapper<StagingSchoolLoan, A2BSchoolLoan>, SchoolLoanMapper>();
         services.AddSingleton<IMapper<StagingSchoolLease, A2BSchoolLease>, SchoolLeaseMapper>();
+        services.AddSingleton<IMapper<A2BApplication, AcademyConversionProject>>();
     })
     .Build();
 

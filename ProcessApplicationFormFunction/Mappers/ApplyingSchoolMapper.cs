@@ -114,7 +114,9 @@ public class ApplyingSchoolMapper : IMapper<StagingApplyingSchool, A2BApplicatio
             SchoolSupportGrantFundsPaidTo = applyingSchool.SchoolSupportGrantFundsPaidTo.ConvertFundsPaidTo(),
             
             SchoolLeases = _schoolLeaseMapper.Map(applyingSchool.SchoolLeases).ToHashSet(),
-            SchoolLoans = _schoolLoanMapper.Map(applyingSchool.SchoolLoans).ToHashSet()
+            SchoolLoans = _schoolLoanMapper.Map(applyingSchool.SchoolLoans).ToHashSet(),
+            
+            Urn = applyingSchool.Urn
         });
     }
 }

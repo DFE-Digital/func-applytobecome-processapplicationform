@@ -13,6 +13,7 @@ public record StagingApplyingSchool
 	
 	public Guid DynamicsApplicationId {get;init;}
 	
+	public int Urn { get; init; }
 	public string SchoolDeclarationSignedById {get;init;}
 	public int? SchoolDeclarationBodyAgree {get;init;}
 	public int? SchoolDeclarationTeacherChair {get;init;}

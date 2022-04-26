@@ -127,5 +127,8 @@ namespace ProcessApplicationFormFunction.Database.Models
         
         public string ApplicationId { get; set; }
         public virtual A2BApplication A2BApplication { get; set; }
+        
+        [NotMapped]
+        public int Urn { get; set; }
     }
 }
