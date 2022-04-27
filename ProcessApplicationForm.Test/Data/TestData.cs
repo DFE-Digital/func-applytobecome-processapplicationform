@@ -62,8 +62,7 @@ public static class TestData
             FormTrustPlanForGrowth = StagingApplicationData.FormTrustPlanForGrowth,
             FormTrustPlansForNoGrowth = StagingApplicationData.FormTrustPlansForNoGrowth,
             FormTrustProposedNameOfTrust = StagingApplicationData.FormTrustProposedNameOfTrust,
-            FormTrustReasonApprovalToConvertAsSat =
-                StagingApplicationData.FormTrustReasonApprovalToConvertAsSat.ConvertDynamicsIntBool(),
+            FormTrustReasonApprovalToConvertAsSat = StagingApplicationData.FormTrustReasonApprovalToConvertAsSat.ConvertDynamicsIntBool(),
             FormTrustReasonApprovedPerson = StagingApplicationData.FormTrustReasonApprovedPerson,
             FormTrustReasonForming = StagingApplicationData.FormTrustReasonForming,
             FormTrustReasonFreedom = StagingApplicationData.FormTrustReasonFreedom,
@@ -75,6 +74,7 @@ public static class TestData
             TrustApproverEmail = StagingApplicationData.TrustApproverEmail,
             TrustApproverName = StagingApplicationData.TrustApproverName,
             TrustId = StagingApplicationData.TrustId,
+            TrustName = StagingApplicationData.TrustName,
             ApplyingSchools = new HashSet<A2BApplicationApplyingSchool>(),
             KeyPersons = new HashSet<A2BApplicationKeyPerson>()
         };
@@ -152,8 +152,8 @@ public static class TestData
             SchoolCapacityPublishedAdmissionsNumber =
                 StagingApplyingSchoolData.SchoolCapacityPublishedAdmissionsNumber.ToIntOrNull(),
             ProjectedPupilNumbersYear1 = StagingApplyingSchoolData.SchoolCapacityYear1,
-            SchoolCapacityYear2 = StagingApplyingSchoolData.SchoolCapacityYear2,
-            SchoolCapacityYear3 = StagingApplyingSchoolData.SchoolCapacityYear3,
+            ProjectedPupilNumbersYear2 = StagingApplyingSchoolData.SchoolCapacityYear2,
+            ProjectedPupilNumbersYear3 = StagingApplyingSchoolData.SchoolCapacityYear3,
             SchoolConsultationStakeholders =
                 StagingApplyingSchoolData.SchoolConsultationStakeholders.ConvertDynamicsIntBool(),
             SchoolConsultationStakeholdersConsult = StagingApplyingSchoolData.SchoolConsultationStakeholdersConsult,
@@ -280,8 +280,9 @@ public static class TestData
 
         EstablishmentData = fixture.Create<Establishment>();
 
-        AcademyConversionProjectData = fixture.Create<AcademyConversionProject>() with
+        AcademyConversionProjectData = new()
         {
+            IfdPipelineId = 0,
             Urn = A2BApplicationApplyingSchoolData.Urn,
             SchoolName = A2BApplicationApplyingSchoolData.Name,
             LocalAuthority = EstablishmentData.LaName,
@@ -290,6 +291,7 @@ public static class TestData
             ApplicationReceivedDate = DateTime.MinValue,
             OpeningDate = DateTime.MinValue.AddMonths(6),
             TrustReferenceNumber = A2BApplicationData.TrustId,
+            NameOfTrust = A2BApplicationData.TrustName,
             AcademyTypeAndRoute = "Converter",
             ConversionSupportGrantAmount = 25000,
             SchoolPhase = EstablishmentData.PhaseOfEducationName,
@@ -297,17 +299,20 @@ public static class TestData
             SchoolType = EstablishmentData.TypeOfEstablishmentName,
             ActualPupilNumbers = EstablishmentData.NumberOfPupils.ToIntOrNull(),
             Capacity = EstablishmentData.SchoolCapacity.ToIntOrNull(),
+            PublishedAdmissionNumber = A2BApplicationApplyingSchoolData.SchoolCapacityPublishedAdmissionsNumber.ToString(),
             PercentageFreeSchoolMeals = EstablishmentData.PercentageFsm.ToDecimalOrNull(),
+            PartOfPfiScheme = A2BApplicationApplyingSchoolData.SchoolBuildLandPFIScheme.ToYesNoString(),
             DiocesanTrust = EstablishmentData.DioceseName,
+            RationaleForTrust = A2BApplicationApplyingSchoolData.SchoolConversionReasonsForJoining,
+            EqualitiesImpactAssessmentConsidered = A2BApplicationApplyingSchoolData.SchoolAdEqualitiesImpactAssessment.ToYesNoString(),
             RevenueCarryForwardAtEndMarchCurrentYear = A2BApplicationApplyingSchoolData.SchoolCFYRevenue,
             ProjectedRevenueBalanceAtEndMarchNextYear = A2BApplicationApplyingSchoolData.SchoolNFYRevenue,
             CapitalCarryForwardAtEndMarchCurrentYear = A2BApplicationApplyingSchoolData.SchoolCFYCapitalForward,
             CapitalCarryForwardAtEndMarchNextYear = A2BApplicationApplyingSchoolData.SchoolNFYCapitalForward,
+            YearOneProjectedPupilNumbers = A2BApplicationApplyingSchoolData.ProjectedPupilNumbersYear1,
+            YearTwoProjectedPupilNumbers = A2BApplicationApplyingSchoolData.ProjectedPupilNumbersYear2,
+            YearThreeProjectedPupilNumbers = A2BApplicationApplyingSchoolData.ProjectedPupilNumbersYear3
         };
-
-
-
-
     }
 
     public static IEnumerable<A2BApplication> GenerateCompleteA2BApplications(int count) =>
@@ -404,7 +409,9 @@ public static class TestData
     public static IEnumerable<AcademyConversionProject> GenerateCompleteAcademyConversionProjects(int count) =>
         Enumerable.Range(1, count).Select(id => AcademyConversionProjectData with
         {
-            Id = id
+            ApplicationReferenceNumber =  $"A2B_TEST{id}",
+            Id = id,
+            Urn = id
         });
 
     public static IEnumerable<Establishment> GenerateCompleteEstablishments(int count) =>

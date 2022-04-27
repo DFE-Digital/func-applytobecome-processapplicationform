@@ -69,7 +69,7 @@ public class ProjectMapper : IMapper<AcademyConversionProjectInformation, Academ
                 PreviousHeadTeacherBoardDateQuestion = null,  // ??
                 PreviousHeadTeacherBoardLink = null,  // ??
                 TrustReferenceNumber = data.Application.TrustId,
-                NameOfTrust = null, // ** Trust information comes from KIM.
+                NameOfTrust = data.Application.TrustName,
                 SponsorReferenceNumber = null, // ??
                 SponsorName = null,  // ??
                 AcademyTypeAndRoute = DefaultAcademyTypeAndRoute,
@@ -112,12 +112,12 @@ public class ProjectMapper : IMapper<AcademyConversionProjectInformation, Academ
                 CapitalCarryForwardAtEndMarchCurrentYear = school.SchoolCFYCapitalForward,
                 CapitalCarryForwardAtEndMarchNextYear = school.SchoolNFYCapitalForward,
 
-                YearOneProjectedCapacity = school.ProjectedPupilNumbersYear1,
-                YearOneProjectedPupilNumbers = null,
+                YearOneProjectedCapacity = null,
+                YearOneProjectedPupilNumbers = school.ProjectedPupilNumbersYear1,
                 YearTwoProjectedCapacity = null,
-                YearTwoProjectedPupilNumbers = null,
+                YearTwoProjectedPupilNumbers = school.ProjectedPupilNumbersYear2,
                 YearThreeProjectedCapacity = null,
-                YearThreeProjectedPupilNumbers = null
+                YearThreeProjectedPupilNumbers = school.ProjectedPupilNumbersYear3
             };
             
             projects.Add(project);
