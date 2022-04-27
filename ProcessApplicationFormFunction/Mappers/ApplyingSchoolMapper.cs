@@ -46,7 +46,7 @@ public class ApplyingSchoolMapper : IMapper<StagingApplyingSchool, A2BApplicatio
             SchoolBuildLandWorksPlannedExplained = applyingSchool.SchoolBuildLandWorksPlannedExplained,
             SchoolCapacityAssumptions = applyingSchool.SchoolCapacityAssumptions,
             SchoolCapacityPublishedAdmissionsNumber = applyingSchool.SchoolCapacityPublishedAdmissionsNumber.ToIntOrNull(),
-            SchoolCapacityYear1 = applyingSchool.SchoolCapacityYear1,
+            ProjectedPupilNumbersYear1 = applyingSchool.SchoolCapacityYear1,
             SchoolCapacityYear2 = applyingSchool.SchoolCapacityYear2,
             SchoolCapacityYear3 = applyingSchool.SchoolCapacityYear3,
             SchoolConsultationStakeholders = applyingSchool.SchoolConsultationStakeholders.ConvertDynamicsIntBool(),

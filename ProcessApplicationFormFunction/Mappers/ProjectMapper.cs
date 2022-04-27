@@ -112,7 +112,7 @@ public class ProjectMapper : IMapper<AcademyConversionProjectInformation, Academ
                 CapitalCarryForwardAtEndMarchCurrentYear = school.SchoolCFYCapitalForward,
                 CapitalCarryForwardAtEndMarchNextYear = school.SchoolNFYCapitalForward,
 
-                YearOneProjectedCapacity = school.SchoolCapacityYear1,
+                YearOneProjectedCapacity = school.ProjectedPupilNumbersYear1,
                 YearOneProjectedPupilNumbers = null,
                 YearTwoProjectedCapacity = null,
                 YearTwoProjectedPupilNumbers = null,

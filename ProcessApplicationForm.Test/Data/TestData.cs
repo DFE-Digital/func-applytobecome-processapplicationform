@@ -151,7 +151,7 @@ public static class TestData
             SchoolCapacityAssumptions = StagingApplyingSchoolData.SchoolCapacityAssumptions,
             SchoolCapacityPublishedAdmissionsNumber =
                 StagingApplyingSchoolData.SchoolCapacityPublishedAdmissionsNumber.ToIntOrNull(),
-            SchoolCapacityYear1 = StagingApplyingSchoolData.SchoolCapacityYear1,
+            ProjectedPupilNumbersYear1 = StagingApplyingSchoolData.SchoolCapacityYear1,
             SchoolCapacityYear2 = StagingApplyingSchoolData.SchoolCapacityYear2,
             SchoolCapacityYear3 = StagingApplyingSchoolData.SchoolCapacityYear3,
             SchoolConsultationStakeholders =
