@@ -41,10 +41,5 @@ public class SqlRepository : IRepository
             .Where(ap => !existingApplicationIds.Contains(ap.Name))
             .AsSingleQuery()
             .ToListAsync();
-
-    public async Task<IEnumerable<Establishment>> GetEstablishments(IEnumerable<int> urns) =>
-        await _context.Establishments
-            .AsNoTracking()
-            .ToListAsync();
 }
 

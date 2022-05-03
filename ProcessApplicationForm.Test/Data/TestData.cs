@@ -22,9 +22,7 @@ public static class TestData
     public static A2BSchoolLease A2BSchoolLeaseData { get; }
 
     public static AcademyConversionProject AcademyConversionProjectData { get; }
-
-    public static Establishment EstablishmentData { get; }
-
+    
     static TestData()
     {
         var fixture = new Fixture();
@@ -151,9 +149,9 @@ public static class TestData
             SchoolCapacityAssumptions = StagingApplyingSchoolData.SchoolCapacityAssumptions,
             SchoolCapacityPublishedAdmissionsNumber =
                 StagingApplyingSchoolData.SchoolCapacityPublishedAdmissionsNumber.ToIntOrNull(),
-            ProjectedPupilNumbersYear1 = StagingApplyingSchoolData.SchoolCapacityYear1,
-            ProjectedPupilNumbersYear2 = StagingApplyingSchoolData.SchoolCapacityYear2,
-            ProjectedPupilNumbersYear3 = StagingApplyingSchoolData.SchoolCapacityYear3,
+            ProjectedPupilNumbersYear1 = StagingApplyingSchoolData.ProjectedPupilNumbersYear1,
+            ProjectedPupilNumbersYear2 = StagingApplyingSchoolData.ProjectedPupilNumbersYear2,
+            ProjectedPupilNumbersYear3 = StagingApplyingSchoolData.ProjectedPupilNumbersYear3,
             SchoolConsultationStakeholders =
                 StagingApplyingSchoolData.SchoolConsultationStakeholders.ConvertDynamicsIntBool(),
             SchoolConsultationStakeholdersConsult = StagingApplyingSchoolData.SchoolConsultationStakeholdersConsult,
@@ -164,9 +162,9 @@ public static class TestData
             SchoolConversionContactChairEmail = StagingApplyingSchoolData.SchoolConversionContactChairEmail,
             SchoolConversionContactChairName = StagingApplyingSchoolData.SchoolConversionContactChairName,
             SchoolConversionContactChairTel = StagingApplyingSchoolData.SchoolConversionContactChairTel,
-            SchoolConversionContactHeadEmail = StagingApplyingSchoolData.SchoolConversionContactChairEmail,
+            SchoolConversionContactHeadEmail = StagingApplyingSchoolData.SchoolConversionContactHeadEmail,
             SchoolConversionContactHeadName = StagingApplyingSchoolData.SchoolConversionContactHeadName,
-            SchoolConversionContactHeadTel = StagingApplyingSchoolData.SchoolConversionContactChairTel,
+            SchoolConversionContactHeadTel = StagingApplyingSchoolData.SchoolConversionContactHeadTel,
             SchoolConversionContactRole =
                 StagingApplyingSchoolData.SchoolConversionContactRole.ConvertApplicationRole(),
             SchoolConversionMainContactOtherRole = StagingApplyingSchoolData.SchoolConversionMainContactOtherRole,
@@ -236,7 +234,8 @@ public static class TestData
             GoverningBodyConsentEvidenceDocumentLink = null,
             SchoolLeases = new HashSet<A2BSchoolLease>(),
             SchoolLoans = new HashSet<A2BSchoolLoan>(),
-            Urn = 1
+            Urn = StagingApplyingSchoolData.Urn,
+            LocalAuthorityName = StagingApplyingSchoolData.LocalAuthorityName
         };
 
         StagingKeyPersonData = fixture.Create<StagingKeyPerson>();
@@ -277,32 +276,25 @@ public static class TestData
             SchoolLoanPurpose = StagingSchoolLoanData.SchoolLoanPurpose,
             SchoolLoanSchedule = StagingSchoolLoanData.SchoolLoanSchedule
         };
-
-        EstablishmentData = fixture.Create<Establishment>();
-
+        
         AcademyConversionProjectData = new()
         {
             IfdPipelineId = 0,
             Urn = A2BApplicationApplyingSchoolData.Urn,
             SchoolName = A2BApplicationApplyingSchoolData.Name,
-            LocalAuthority = EstablishmentData.LaName,
+            LocalAuthority = A2BApplicationApplyingSchoolData.LocalAuthorityName,
             ApplicationReferenceNumber = A2BApplicationData.ApplicationId,
             ProjectStatus = "Converter Pre-AO (C)",
-            ApplicationReceivedDate = DateTime.MinValue,
-            OpeningDate = DateTime.MinValue.AddMonths(6),
+            ApplicationReceivedDate = DateTime.Today,
+            OpeningDate = DateTime.Today.AddMonths(6),
             TrustReferenceNumber = A2BApplicationData.TrustId,
             NameOfTrust = A2BApplicationData.TrustName,
             AcademyTypeAndRoute = "Converter",
+            ProposedAcademyOpeningDate = A2BApplicationApplyingSchoolData.SchoolConversionTargetDateDate,
             ConversionSupportGrantAmount = 25000,
-            SchoolPhase = EstablishmentData.PhaseOfEducationName,
-            AgeRange = $"{EstablishmentData.StatutoryLowAge}-{EstablishmentData.StatutoryHighAge}",
-            SchoolType = EstablishmentData.TypeOfEstablishmentName,
-            ActualPupilNumbers = EstablishmentData.NumberOfPupils.ToIntOrNull(),
-            Capacity = EstablishmentData.SchoolCapacity.ToIntOrNull(),
+            FinancialDeficit = A2BApplicationApplyingSchoolData.SchoolCFYCapitalIsDeficit.ToYesNoString(),
             PublishedAdmissionNumber = A2BApplicationApplyingSchoolData.SchoolCapacityPublishedAdmissionsNumber.ToString(),
-            PercentageFreeSchoolMeals = EstablishmentData.PercentageFsm.ToDecimalOrNull(),
             PartOfPfiScheme = A2BApplicationApplyingSchoolData.SchoolBuildLandPFIScheme.ToYesNoString(),
-            DiocesanTrust = EstablishmentData.DioceseName,
             RationaleForTrust = A2BApplicationApplyingSchoolData.SchoolConversionReasonsForJoining,
             EqualitiesImpactAssessmentConsidered = A2BApplicationApplyingSchoolData.SchoolAdEqualitiesImpactAssessment.ToYesNoString(),
             RevenueCarryForwardAtEndMarchCurrentYear = A2BApplicationApplyingSchoolData.SchoolCFYRevenue,
@@ -410,13 +402,6 @@ public static class TestData
         Enumerable.Range(1, count).Select(id => AcademyConversionProjectData with
         {
             ApplicationReferenceNumber =  $"A2B_TEST{id}",
-            Id = id,
-            Urn = id
-        });
-
-    public static IEnumerable<Establishment> GenerateCompleteEstablishments(int count) =>
-        Enumerable.Range(1, count).Select(id => EstablishmentData with
-        {
             Urn = id
         });
 }

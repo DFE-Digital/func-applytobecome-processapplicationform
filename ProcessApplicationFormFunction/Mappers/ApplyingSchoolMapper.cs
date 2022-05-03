@@ -46,9 +46,9 @@ public class ApplyingSchoolMapper : IMapper<StagingApplyingSchool, A2BApplicatio
             SchoolBuildLandWorksPlannedExplained = applyingSchool.SchoolBuildLandWorksPlannedExplained,
             SchoolCapacityAssumptions = applyingSchool.SchoolCapacityAssumptions,
             SchoolCapacityPublishedAdmissionsNumber = applyingSchool.SchoolCapacityPublishedAdmissionsNumber.ToIntOrNull(),
-            ProjectedPupilNumbersYear1 = applyingSchool.SchoolCapacityYear1,
-            ProjectedPupilNumbersYear2 = applyingSchool.SchoolCapacityYear2,
-            ProjectedPupilNumbersYear3 = applyingSchool.SchoolCapacityYear3,
+            ProjectedPupilNumbersYear1 = applyingSchool.ProjectedPupilNumbersYear1,
+            ProjectedPupilNumbersYear2 = applyingSchool.ProjectedPupilNumbersYear2,
+            ProjectedPupilNumbersYear3 = applyingSchool.ProjectedPupilNumbersYear3,
             SchoolConsultationStakeholders = applyingSchool.SchoolConsultationStakeholders.ConvertDynamicsIntBool(),
             SchoolConsultationStakeholdersConsult = applyingSchool.SchoolConsultationStakeholdersConsult,
             SchoolConversionApproverContactEmail = applyingSchool.SchoolConversionApproverContactEmail,
@@ -58,9 +58,9 @@ public class ApplyingSchoolMapper : IMapper<StagingApplyingSchool, A2BApplicatio
             SchoolConversionContactChairEmail = applyingSchool.SchoolConversionContactChairEmail,
             SchoolConversionContactChairName = applyingSchool.SchoolConversionContactChairName,
             SchoolConversionContactChairTel = applyingSchool.SchoolConversionContactChairTel,
-            SchoolConversionContactHeadEmail = applyingSchool.SchoolConversionContactChairEmail,
+            SchoolConversionContactHeadEmail = applyingSchool.SchoolConversionContactHeadEmail,
             SchoolConversionContactHeadName = applyingSchool.SchoolConversionContactHeadName,
-            SchoolConversionContactHeadTel = applyingSchool.SchoolConversionContactChairTel,
+            SchoolConversionContactHeadTel = applyingSchool.SchoolConversionContactHeadTel,
             SchoolConversionContactRole = applyingSchool.SchoolConversionContactRole.ConvertApplicationRole(),
             SchoolConversionMainContactOtherRole = applyingSchool.SchoolConversionMainContactOtherRole,
             SchoolConversionMainContactOtherEmail = applyingSchool.SchoolConversionMainContactOtherEmail,
@@ -116,7 +116,8 @@ public class ApplyingSchoolMapper : IMapper<StagingApplyingSchool, A2BApplicatio
             SchoolLeases = _schoolLeaseMapper.Map(applyingSchool.SchoolLeases).ToHashSet(),
             SchoolLoans = _schoolLoanMapper.Map(applyingSchool.SchoolLoans).ToHashSet(),
             
-            Urn = applyingSchool.Urn
+            Urn = applyingSchool.Urn,
+            LocalAuthorityName = applyingSchool.LocalAuthorityName
         });
     }
 }

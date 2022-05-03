@@ -130,5 +130,8 @@ namespace ProcessApplicationFormFunction.Database.Models
         
         [NotMapped]
         public int Urn { get; set; }
+        
+        [NotMapped]
+        public string LocalAuthorityName { get; set; }
     }
 }

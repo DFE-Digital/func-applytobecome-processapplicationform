@@ -14,8 +14,6 @@ public class SipDbContext : DbContext
     public virtual DbSet<StagingApplication> DynamicsApplications { get; set; }
     public virtual DbSet<A2BApplication> A2BApplications { get; set; }
     public virtual DbSet<AcademyConversionProject> AcademyConversionProjects { get; set; }
-    
-    public virtual DbSet<Establishment> Establishments { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

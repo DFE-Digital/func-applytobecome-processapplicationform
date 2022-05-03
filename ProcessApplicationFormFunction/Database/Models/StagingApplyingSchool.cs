@@ -19,7 +19,6 @@ public record StagingApplyingSchool
 	public int? SchoolDeclarationTeacherChair {get;init;}
 	public string SchoolDeclarationSignedByEmail {get;init;}
 	public string Name {get;init;}
-	public string UpdatedSchoolFields {get;init;}
 	public string SchoolConversionReasonsForJoining {get;init;}
 	public int? SchoolConversionTargetDateDifferent {get;init;}
 	public DateTime? SchoolConversionTargetDateDate {get;init;}
@@ -96,11 +95,9 @@ public record StagingApplyingSchool
 	public DateTime? SchoolNFYEndDate {get;init;}
 	public DateTime? SchoolPFYEndDate {get;init;}
 	public DateTime? SchoolCFYEndDate {get;init;}
-	public int? SchoolLoanExists {get;init;}
-	public int? SchoolLeaseExists {get;init;}
-	public int? SchoolCapacityYear1 {get;init;}
-	public int? SchoolCapacityYear2 {get;init;}
-	public int? SchoolCapacityYear3 {get;init;}
+	public int? ProjectedPupilNumbersYear1 {get;init;}
+	public int? ProjectedPupilNumbersYear2 {get;init;}
+	public int? ProjectedPupilNumbersYear3 {get;init;}
 	public string SchoolCapacityAssumptions {get;init;}
 	public string SchoolCapacityPublishedAdmissionsNumber {get;init;}
 	public string SchoolBuildLandOwnerExplained {get;init;}
@@ -119,6 +116,8 @@ public record StagingApplyingSchool
 	public string SchoolConsultationStakeholdersConsult {get;init;}
 	public int? SchoolSupportGrantFundsPaidTo {get;init;}
 	public string SchoolDeclarationSignedByName {get;init;}
+	
+	public string LocalAuthorityName { get; init; }
 	
 	[ForeignKey(nameof(DynamicsApplyingSchoolId))]
 	public virtual ICollection<StagingSchoolLease> SchoolLeases { get; init; }

@@ -8,112 +8,52 @@ using ProcessApplicationFormFunction.Extensions;
 
 namespace ProcessApplicationFormFunction.Mappers;
 
-// we would create the projects with the following settings:
-//
-//&& ifd.GeneralDetailsRouteOfProject == "Converter"
-// && ifd.GeneralDetailsProjectStatus == "Converter Pre-AO (C)"
-// && ifd.ApprovalProcessAppliedOrBrokered == "Applied"
-// && ifd.ApprovalProcessApplicationDate --- from application form??
-// && ifd.TrustSponsorManagementTrust != null  ----- there is a trust ref in application form??
-// && ifd.DeliveryProcessApplicationFormReference != null -- this is the app form
-// && ifd.GeneralDetailsProjectLead != null -- this is manually assigned and defines which projects a project
-// can view.
-
-public class ProjectMapper : IMapper<AcademyConversionProjectInformation, AcademyConversionProject>
+public class ProjectMapper : IMapper<A2BApplication, AcademyConversionProject>
 {
     private const decimal DefaultConversionSupportGrantAmount = 25000;
     private const string DefaultAcademyTypeAndRoute = "Converter";
     
-    public IEnumerable<AcademyConversionProject> Map([NotNull] IEnumerable<AcademyConversionProjectInformation> source)
+    public IEnumerable<AcademyConversionProject> Map([NotNull] IEnumerable<A2BApplication> source)
     {
         List<AcademyConversionProject> projects = new();
 
-        foreach (var data in source)
+        foreach (var application in source)
         {
-            A2BApplicationApplyingSchool school;
-            Establishment establishment;
-            try
+            if(!application.ApplyingSchools.Any())
             {
-                school = data.Application.ApplyingSchools.First();
-                establishment = data.Establishments.First(e => e.Urn == school.Urn);
+                throw new ApplicationException("Application must have at least one school");
             }
-            catch (Exception e)
-            {
-                throw new ApplicationException("Application must have at least one school and associated establishment", e);
-            }
+           
+            var school = application.ApplyingSchools.First();
             
             var project = new AcademyConversionProject
             {
                 IfdPipelineId = 0, // not required
                 Urn = school.Urn,
                 SchoolName = school.Name,
-                LocalAuthority = establishment.LaName,
-                ApplicationReferenceNumber = data.Application.ApplicationId,
+                LocalAuthority = school.LocalAuthorityName,
+                ApplicationReferenceNumber = application.ApplicationId,
                 ProjectStatus = "Converter Pre-AO (C)",
-                ApplicationReceivedDate = DateTime.UtcNow,
-                AssignedDate = null, // ** set when assigned to Project Lead **
-                HeadTeacherBoardDate = null,
-                OpeningDate = DateTime.UtcNow.AddMonths(6), // Business rule is to set this date to six months from project initiation
-                LocalAuthorityInformationTemplateSentDate = null,
-                LocalAuthorityInformationTemplateReturnedDate = null,
-                LocalAuthorityInformationTemplateComments = null,
-                LocalAuthorityInformationTemplateLink = null,
-                LocalAuthorityInformationTemplateSectionComplete = null,
-                RecommendationForProject = null,
-                Author = null, // ** This is set by Abby G after receiving email from team leader ** // 
-                ClearedBy = null,  // ** This is set by Abby G from a word document this is General Details Team Leader in KIM **
-                AcademyOrderRequired = null,
-                PreviousHeadTeacherBoardDate = null, 
-                PreviousHeadTeacherBoardDateQuestion = null,
-                PreviousHeadTeacherBoardLink = null,
-                TrustReferenceNumber = data.Application.TrustId,
-                NameOfTrust = data.Application.TrustName,
-                SponsorReferenceNumber = null, // ?? waiting for info from BA
-                SponsorName = null,  // ?? waiting for info from BA
+                ApplicationReceivedDate = DateTime.Today,
+                OpeningDate = DateTime.Today.AddMonths(6), // Business rule is to set this date to six months from project initiation
+                TrustReferenceNumber = application.TrustId,
+                NameOfTrust = application.TrustName,
                 AcademyTypeAndRoute = DefaultAcademyTypeAndRoute,
                 ProposedAcademyOpeningDate = school.SchoolConversionTargetDateDate,
-                SchoolAndTrustInformationSectionComplete = null,
                 ConversionSupportGrantAmount = DefaultConversionSupportGrantAmount,
-                ConversionSupportGrantChangeReason = null,
-                SchoolPhase = null,
-                AgeRange = null,
-                SchoolType = null,
-                ActualPupilNumbers = null,
-                Capacity = null,
                 PublishedAdmissionNumber = school.SchoolCapacityPublishedAdmissionsNumber.ToString(),
-                PercentageFreeSchoolMeals = establishment.PercentageFsm.ToDecimalOrNull(),
                 PartOfPfiScheme = school.SchoolBuildLandPFIScheme.ToYesNoString(),
-                ViabilityIssues = null,
                 FinancialDeficit = school.SchoolCFYCapitalIsDeficit.ToYesNoString(),
-                DiocesanTrust = null,
-                DistanceFromSchoolToTrustHeadquarters = null,
-                DistanceFromSchoolToTrustHeadquartersAdditionalInformation = null,
-                MemberOfParliamentParty = null,
-                MemberOfParliamentName = null, 
-                GeneralInformationSectionComplete = null,
-                SchoolPerformanceAdditionalInformation = null,
-                RationaleForProject = null,
                 RationaleForTrust = school.SchoolConversionReasonsForJoining,
-                RationaleSectionComplete = null,
-                RisksAndIssues = null,
                 EqualitiesImpactAssessmentConsidered = school.SchoolAdEqualitiesImpactAssessment.ToYesNoString(),
-                RisksAndIssuesSectionComplete = null,
-                SchoolBudgetInformationAdditionalInformation = null,
-                SchoolBudgetInformationSectionComplete = null,
-                KeyStage2PerformanceAdditionalInformation = null,
-                KeyStage4PerformanceAdditionalInformation = null,
-                KeyStage5PerformanceAdditionalInformation = null,
 
                 RevenueCarryForwardAtEndMarchCurrentYear = school.SchoolCFYRevenue,
                 ProjectedRevenueBalanceAtEndMarchNextYear = school.SchoolNFYRevenue,
                 CapitalCarryForwardAtEndMarchCurrentYear = school.SchoolCFYCapitalForward,
                 CapitalCarryForwardAtEndMarchNextYear = school.SchoolNFYCapitalForward,
-
-                YearOneProjectedCapacity = null,
+                
                 YearOneProjectedPupilNumbers = school.ProjectedPupilNumbersYear1,
-                YearTwoProjectedCapacity = null,
                 YearTwoProjectedPupilNumbers = school.ProjectedPupilNumbersYear2,
-                YearThreeProjectedCapacity = null,
                 YearThreeProjectedPupilNumbers = school.ProjectedPupilNumbersYear3
             };
             

@@ -54,6 +54,7 @@ public class ApplicationMapper : IMapper<StagingApplication, A2BApplication>
             TrustApproverEmail = stagingApplication.TrustApproverEmail,
             TrustApproverName = stagingApplication.TrustApproverName,
             TrustId = stagingApplication.TrustId,
+            TrustName = stagingApplication.TrustName,
             ApplyingSchools = _applyingSchoolMapper.Map(stagingApplication.ApplyingSchools).ToHashSet(),
             KeyPersons = _keyPersonMapper.Map(stagingApplication.KeyPersons).ToHashSet()
         });
