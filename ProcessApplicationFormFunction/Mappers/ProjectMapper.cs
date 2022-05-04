@@ -46,7 +46,9 @@ public class ProjectMapper : IMapper<A2BApplication, AcademyConversionProject>
                 FinancialDeficit = school.SchoolCFYCapitalIsDeficit.ToYesNoString(),
                 RationaleForTrust = school.SchoolConversionReasonsForJoining,
                 EqualitiesImpactAssessmentConsidered = school.SchoolAdEqualitiesImpactAssessment.ToYesNoString(),
-
+                SponsorName = application.SponsorName,
+                SponsorReferenceNumber = application.SponsorReferenceNumber,
+                
                 RevenueCarryForwardAtEndMarchCurrentYear = school.SchoolCFYRevenue,
                 ProjectedRevenueBalanceAtEndMarchNextYear = school.SchoolNFYRevenue,
                 CapitalCarryForwardAtEndMarchCurrentYear = school.SchoolCFYCapitalForward,

@@ -45,6 +45,13 @@ namespace ProcessApplicationFormFunction.Database.Models
 		
 		[NotMapped]
 		public string TrustName { get; set; }
+		
+		[NotMapped]
+		public string SponsorReferenceNumber { get; set; }
+		
+		[NotMapped]
+		public string SponsorName { get; set; }
+		
 		public string ApplicationStatusId { get; set; }
 		
 		[ForeignKey(nameof(ApplicationId))]

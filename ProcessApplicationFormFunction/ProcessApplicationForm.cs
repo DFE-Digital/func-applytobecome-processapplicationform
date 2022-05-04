@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -49,9 +48,13 @@ public class ProcessApplicationForm
             {
                 var mappedApplications = _applicationMapper.Map(applications).ToList();
                 await _repository.AddA2BApplications(mappedApplications);
+                
+                logger.LogInformation("Created {Count} applications in database", mappedApplications.Count);
 
                 var mappedProjects = _projectMapper.Map(mappedApplications);
                 await _repository.AddAcademyConversionProjects(mappedProjects);
+                
+                logger.LogInformation("Created {Count} projects in database", mappedApplications.Count);
             }
         }
         catch (Exception e)
