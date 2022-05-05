@@ -14,12 +14,18 @@ namespace ProcessApplicationFormFunction;
 public class ProcessApplicationForm
 {
     private readonly IRepository _repository;
-    private readonly IMapper<StagingApplication, A2BApplication> _mapper;
+    private readonly IMapper<StagingApplication, A2BApplication> _applicationMapper;
+    private readonly IMapper<A2BApplication, AcademyConversionProject> _projectMapper;
 
-    public ProcessApplicationForm(IRepository repository, IMapper<StagingApplication, A2BApplication> mapper)
+    public ProcessApplicationForm(
+        IRepository repository, 
+        IMapper<StagingApplication, A2BApplication> applicationMapper,
+        IMapper<A2BApplication, AcademyConversionProject> projectMapper
+        )
     {
         _repository = repository;
-        _mapper = mapper;
+        _applicationMapper = applicationMapper;
+        _projectMapper = projectMapper;
     }
 
     [Function(nameof(ProcessApplicationForm))]
@@ -37,11 +43,18 @@ public class ProcessApplicationForm
         {
             var applicationIds = await _repository.GetA2BApplicationIds();
             var applications = (await _repository.GetStagingApplications(applicationIds)).ToList();
-            
+
             if (applications.Any())
             {
-                var mappedApplications = _mapper.Map(applications);
+                var mappedApplications = _applicationMapper.Map(applications).ToList();
                 await _repository.AddA2BApplications(mappedApplications);
+                
+                logger.LogInformation("Created {Count} applications in database", mappedApplications.Count);
+
+                var mappedProjects = _projectMapper.Map(mappedApplications);
+                await _repository.AddAcademyConversionProjects(mappedProjects);
+                
+                logger.LogInformation("Created {Count} projects in database", mappedApplications.Count);
             }
         }
         catch (Exception e)

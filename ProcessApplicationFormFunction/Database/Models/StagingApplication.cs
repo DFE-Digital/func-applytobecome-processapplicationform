@@ -43,6 +43,8 @@ public record StagingApplication
     public string FormTrustImprovementStrategy {get; init;}
     public string FormTrustImprovementApprovedSponsor {get; init;}
     public string TrustId {get; init;}
+    
+    public string TrustName { get; init; }
     public string ApplicationStatusId {get; init;}
 
     [ForeignKey(nameof(DynamicsApplicationId))]
