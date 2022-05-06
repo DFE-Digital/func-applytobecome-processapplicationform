@@ -54,8 +54,6 @@ The function uses Function Level authorisation.  When run locally this is ignore
   
  This key is found within azure portal by navigating to the Azure Function -> Keys.  You will be able to retrieve the default key from page displayed.
   
-  
-_Note: The function only processes new application forms based on if the record already exists in the database, so to see the process running through, you will need to use the complete an Apply To Become form in the dev environment and then trigger the function.  At this point it will create the application form and associated project._
-  
+ 
   
 
