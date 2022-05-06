@@ -38,7 +38,7 @@ Please follow the section below relevent to your development environment
 You will need to run locally against **Dev** and ensure you have either an environment variable, secret or a local.settings.json file with
 the following value set to the the connection string for **Dev Database**:
 
-`__SQLAZURECONNSTR_SqlConnectionString_`
+`SQLAZURECONNSTR_SqlConnectionString`
 
 _Note: As we cannot run the ADF pipeline against local Db, we will not have the tables or any data in a local Db._
   
