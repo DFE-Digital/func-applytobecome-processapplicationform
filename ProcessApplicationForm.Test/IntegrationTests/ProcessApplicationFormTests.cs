@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Web.Http;
 using FluentAssertions;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using ProcessApplicationForm.Test.Data;
@@ -23,37 +20,21 @@ namespace ProcessApplicationForm.Test.IntegrationTests;
 
 public class ProcessApplicationFormTests
 {
-    private readonly Mock<FunctionContext> _mockContext;
-    private readonly Mock<HttpRequestData> _mockRequest;
+    private readonly Mock<HttpRequest> _mockRequest;
     private readonly Mock<IRepository> _mockRepository;
     private readonly Mock<IMapper<StagingApplication, A2BApplication>> _mockApplicationMapper;
     private readonly Mock<IMapper<A2BApplication, AcademyConversionProject>> _mockProjectMapper;
-    
+    private readonly Mock<ILogger> _mockLogger;
+
     public ProcessApplicationFormTests()
     {
-        ServiceCollection serviceCollection = new();
-        serviceCollection.AddScoped<ILoggerFactory, LoggerFactory>();
-        var serviceProvider = serviceCollection.BuildServiceProvider();
-        
-        _mockContext = new();
-        _mockContext.SetupProperty(c => c.InstanceServices, serviceProvider);
-        
-        _mockRequest = new(_mockContext.Object);
-        _mockRequest.Setup(r => r.CreateResponse()).Returns(() =>
-        {
-            Mock<HttpResponseData> response = new(_mockContext.Object);
-            response.SetupProperty(r => r.Headers, new());
-            response.SetupProperty(r => r.StatusCode);
-            response.SetupProperty(r => r.Body, new MemoryStream());
-
-            return response.Object;
-        });
-        
+        _mockLogger = new();
+        _mockRequest = new();
         _mockRepository = new();
         _mockApplicationMapper = new();
         _mockProjectMapper = new();
     }
-    
+
     [Fact]
     public async Task ProcessApplicationForm_WhenSuccessful_ReturnsOk()
     {
@@ -74,7 +55,7 @@ public class ProcessApplicationFormTests
 
         _mockRepository
             .Setup(r => r.AddAcademyConversionProjects(academyConversionProjects));
-        
+
         _mockApplicationMapper
             .Setup(r => r.Map(stagingApplications))
             .Returns(a2BApplications);
@@ -83,58 +64,60 @@ public class ProcessApplicationFormTests
             .Setup(r => r.Map(a2BApplications))
             .Returns(academyConversionProjects);
 
-        ProcessApplicationFormFunction.ProcessApplicationForm function = 
+        ProcessApplicationFormFunction.ProcessApplicationForm function =
             new(_mockRepository.Object, _mockApplicationMapper.Object, _mockProjectMapper.Object);
 
-        var result = await function.Process( _mockRequest.Object, _mockContext.Object);
+        var x = new ActionContext();
 
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        var result = await function.RunAsync(_mockRequest.Object, _mockLogger.Object);
+
+        result.Should().BeEquivalentTo(new OkResult());
     }
 
     [Fact]
-    public async Task ProcessApplicationForm_WhenNoApplicationsToAdd_ReturnsOk_AndShouldNotCallMapperOrAddRepositoryMethods()
-    {
-        var stagingApplications = Array.Empty<StagingApplication>;
+     public async Task ProcessApplicationForm_WhenNoApplicationsToAdd_ReturnsOk_AndShouldNotCallMapperOrAddRepositoryMethods()
+     {
+         var stagingApplications = Array.Empty<StagingApplication>;
 
-        _mockRepository
-            .Setup(r => r.GetA2BApplicationIds())
-            .ReturnsAsync(Array.Empty<string>);
+         _mockRepository
+             .Setup(r => r.GetA2BApplicationIds())
+             .ReturnsAsync(Array.Empty<string>);
 
-        _mockRepository
-            .Setup(r => r.GetStagingApplications(It.IsAny<IEnumerable<string>>()))
-            .ReturnsAsync(stagingApplications);
+         _mockRepository
+             .Setup(r => r.GetStagingApplications(It.IsAny<IEnumerable<string>>()))
+             .ReturnsAsync(stagingApplications);
 
-        _mockRepository
-            .Setup(r => r.AddA2BApplications(It.IsAny<IEnumerable<A2BApplication>>()));
+         _mockRepository
+             .Setup(r => r.AddA2BApplications(It.IsAny<IEnumerable<A2BApplication>>()));
 
-        _mockApplicationMapper
-            .Setup(r => r.Map(It.IsAny<IEnumerable<StagingApplication>>()));
+         _mockApplicationMapper
+             .Setup(r => r.Map(It.IsAny<IEnumerable<StagingApplication>>()));
 
-        ProcessApplicationFormFunction.ProcessApplicationForm function = 
-            new(_mockRepository.Object, _mockApplicationMapper.Object, _mockProjectMapper.Object);
+         ProcessApplicationFormFunction.ProcessApplicationForm function = 
+             new(_mockRepository.Object, _mockApplicationMapper.Object, _mockProjectMapper.Object);
 
-        var result = await function.Process(_mockRequest.Object, _mockContext.Object);
-        
-        _mockApplicationMapper.Verify(m => m.Map(It.IsAny<IEnumerable<StagingApplication>>()), Times.Never);
-        _mockProjectMapper.Verify(m => m.Map(It.IsAny<IEnumerable<A2BApplication>>()), Times.Never);
-        _mockRepository.Verify(r => r.AddA2BApplications(It.IsAny<IEnumerable<A2BApplication>>()), Times.Never);
-        _mockRepository.Verify(r => r.AddAcademyConversionProjects(It.IsAny<IEnumerable<AcademyConversionProject>>()), Times.Never);
+         var result = await function.RunAsync(_mockRequest.Object, _mockLogger.Object);
+         
+         _mockApplicationMapper.Verify(m => m.Map(It.IsAny<IEnumerable<StagingApplication>>()), Times.Never);
+         _mockProjectMapper.Verify(m => m.Map(It.IsAny<IEnumerable<A2BApplication>>()), Times.Never);
+         _mockRepository.Verify(r => r.AddA2BApplications(It.IsAny<IEnumerable<A2BApplication>>()), Times.Never);
+         _mockRepository.Verify(r => r.AddAcademyConversionProjects(It.IsAny<IEnumerable<AcademyConversionProject>>()), Times.Never);
 
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
-    }
+         result.Should().BeEquivalentTo(new OkResult());
+     }
 
-    [Fact]
-    public async Task ProcessApplicationForm_WhenNotSuccessful_ReturnsInternalServerError()
-    {
-        _mockRepository
-            .Setup(r => r.GetA2BApplicationIds())
-            .ThrowsAsync(new DBConcurrencyException());
+     [Fact]
+     public async Task ProcessApplicationForm_WhenNotSuccessful_ReturnsInternalServerError()
+     {
+         _mockRepository
+             .Setup(r => r.GetA2BApplicationIds())
+             .ThrowsAsync(new DBConcurrencyException());
 
-        ProcessApplicationFormFunction.ProcessApplicationForm function = 
-            new(_mockRepository.Object, _mockApplicationMapper.Object, _mockProjectMapper.Object);
+         ProcessApplicationFormFunction.ProcessApplicationForm function = 
+             new(_mockRepository.Object, _mockApplicationMapper.Object, _mockProjectMapper.Object);
 
-        var result = await function.Process( _mockRequest.Object, _mockContext.Object);
+         var result = await function.RunAsync( _mockRequest.Object, _mockLogger.Object);
 
-        result.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-    }
-}
+         result.Should().BeEquivalentTo(new InternalServerErrorResult());
+     }
+ }
