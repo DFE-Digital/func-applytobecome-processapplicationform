@@ -4,7 +4,7 @@ An Azure function used to process submitted application forms from '**Apply to B
 
 ## Local Setup
 
-This function runs against Azure Functions runtime v4 and built using .NET 6 Isolated Function architecture.
+This function runs against Azure Functions runtime v4 and built using .NET 6 In-Process architecture.
 
 Please follow the section below relevent to your development environment
 
