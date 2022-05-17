@@ -120,7 +120,7 @@ public static class TestData
             SchoolAdEqualitiesImpactAssessment =
                 StagingApplyingSchoolData.SchoolAdEqualitiesImpactAssessment.ConvertDynamicsIntBool(),
             SchoolAdEqualitiesImpactAssessmentDetails =
-                StagingApplyingSchoolData.SchoolAdEqualitiesImpactAssessmentDetails,
+                StagingApplyingSchoolData.SchoolAdEqualitiesImpactAssessment.ConvertEqualitiesImpactAssessmentDetails(),
             SchoolAdFeederSchools = StagingApplyingSchoolData.SchoolAdFeederSchools,
             SchoolAdInspectedButReportNotPublished = StagingApplyingSchoolData.SchoolAdInspectedButReportNotPublished
                 .ConvertDynamicsIntBool(),
