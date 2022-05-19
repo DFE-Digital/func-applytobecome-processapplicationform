@@ -62,4 +62,38 @@ public class IntExtensionsTests
 
         result.Should().Be(expected);
     }
+
+    [Theory]
+    [InlineData(907660000, true)]
+    [InlineData(907660001, true)]
+    [InlineData(907660002, false)]
+    public void ConvertDynamicsEqualitiesImpactAssessmentIntBool_ReturnsExpectedValueFromInlineData(int? input, bool expected)
+    {
+        var result = input.ConvertDynamicsEqualitiesImpactAssessmentIntBool();
+
+        result.Should().Be(expected);
+    }
+
+
+    [Theory]
+    [InlineData(907660000, "That the Secretary of State's decision is unlikely to disproportionately affect any particular person or group who share protected characteristics")]
+    [InlineData(907660001, "That there are some impacts but on balance the changes will not disproportionately affect any particular person or group who share protected characteristics")]
+    [InlineData(907660002, null)]
+    public void ConvertEqualitiesImpactAssessmentDetails_ReturnsExpectedValueFromInlineData(int? input, string expected)
+    {
+        var result = input.ConvertEqualitiesImpactAssessmentDetails();
+
+        result.Should().Be(expected);
+    }
+
+    [Theory]
+    [InlineData(907660000, true)]
+    [InlineData(907660001, null)]
+    [InlineData(907660002, false)]
+    public void ConvertChangesToTrust_ReturnsExpectedValueFromInlineData(int? input, bool? expected) 
+    {
+        var result = input.ConvertChangesToTrust();
+
+        result.Should().Be(expected);
+    }
 }

@@ -1,8 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessApplicationFormFunction", "ProcessApplicationFormFunction\ProcessApplicationFormFunction.csproj", "{29E164CE-B3A4-4E59-A9F7-3B86EBB1FD0B}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProcessApplicationFormFunction", "ProcessApplicationFormFunction\ProcessApplicationFormFunction.csproj", "{29E164CE-B3A4-4E59-A9F7-3B86EBB1FD0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessApplicationForm.Test", "ProcessApplicationForm.Test\ProcessApplicationForm.Test.csproj", "{B3F6A535-65DA-4B86-BB0C-D7652876F5E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProcessApplicationForm.Test", "ProcessApplicationForm.Test\ProcessApplicationForm.Test.csproj", "{B3F6A535-65DA-4B86-BB0C-D7652876F5E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E26D7FA1-5DDF-42B9-8A26-8030FD69AB18}"
+	ProjectSection(SolutionItems) = preProject
+		localsettings.json = localsettings.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +26,11 @@ Global
 		{B3F6A535-65DA-4B86-BB0C-D7652876F5E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3F6A535-65DA-4B86-BB0C-D7652876F5E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3F6A535-65DA-4B86-BB0C-D7652876F5E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {23120A02-C5D1-462C-839D-D987874E5A0A}
 	EndGlobalSection
 EndGlobal

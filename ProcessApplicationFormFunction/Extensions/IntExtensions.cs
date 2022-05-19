@@ -2,6 +2,9 @@ namespace ProcessApplicationFormFunction.Extensions;
 
 public static class IntExtensions
 {
+    private static string EqualityStatement1 = "That the Secretary of State's decision is unlikely to disproportionately affect any particular person or group who share protected characteristics";
+    private static string EqualityStatement2 = "That there are some impacts but on balance the changes will not disproportionately affect any particular person or group who share protected characteristics";
+
     public static bool? ConvertSurplusOrDeficit(this int? value) => value switch
     {
         907660000 => false,
@@ -36,6 +39,30 @@ public static class IntExtensions
     {
         907660000 => "School",
         907660001 => "Trust",
+        _ => null
+    };
+
+    public static bool? ConvertDynamicsEqualitiesImpactAssessmentIntBool(this int? value) => value switch
+    {
+        907660000 => true,
+        907660001 => true,
+        907660002 => false,
+        _ => null
+    };
+
+    public static string ConvertEqualitiesImpactAssessmentDetails(this int? selectedStatement) => selectedStatement switch
+    {
+        907660000 => EqualityStatement1,
+        907660001 => EqualityStatement2,
+        907660002 => null,
+        _ => null
+    };
+
+    public static bool? ConvertChangesToTrust(this int? value) => value switch
+    {
+        907660000 => true,
+        907660001 => null, // user on A2B external has selected Unknown,
+        907660002 => false,
         _ => null
     };
 }

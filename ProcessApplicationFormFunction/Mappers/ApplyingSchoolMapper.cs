@@ -24,8 +24,8 @@ public class ApplyingSchoolMapper : IMapper<StagingApplyingSchool, A2BApplicatio
         {
             Name = applyingSchool.Name,
             SchoolAddFurtherInformation = applyingSchool.SchoolAddFurtherInformation.ConvertDynamicsIntBool(),
-            SchoolAdEqualitiesImpactAssessment = applyingSchool.SchoolAdEqualitiesImpactAssessment.ConvertDynamicsIntBool(),
-            SchoolAdEqualitiesImpactAssessmentDetails = applyingSchool.SchoolAdEqualitiesImpactAssessmentDetails,
+            SchoolAdEqualitiesImpactAssessment = applyingSchool.SchoolAdEqualitiesImpactAssessment.ConvertDynamicsEqualitiesImpactAssessmentIntBool(),
+            SchoolAdEqualitiesImpactAssessmentDetails = applyingSchool.SchoolAdEqualitiesImpactAssessment.ConvertEqualitiesImpactAssessmentDetails(),
             SchoolAdFeederSchools = applyingSchool.SchoolAdFeederSchools,
             SchoolAdInspectedButReportNotPublished = applyingSchool.SchoolAdInspectedButReportNotPublished.ConvertDynamicsIntBool(),
             SchoolAdInspectedReportNotPublishedExplain = applyingSchool.SchoolAdInspectedReportNotPublishedExplain,
