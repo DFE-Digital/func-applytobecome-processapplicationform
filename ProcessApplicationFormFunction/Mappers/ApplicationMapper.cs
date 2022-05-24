@@ -33,7 +33,7 @@ public class ApplicationMapper : IMapper<StagingApplication, A2BApplication>
             ApplicationVersion = stagingApplication.ApplicationVersion.ToString(),
             ChangesToLaGovernance = stagingApplication.ChangesToLaGovernance.ConvertDynamicsIntBool(),
             ChangesToLaGovernanceExplained = stagingApplication.ChangesToLaGovernanceExplained,
-            ChangesToTrust = stagingApplication.ChangesToTrust.ConvertChangesToTrust(),
+            ChangesToTrust = stagingApplication.ChangesToTrust.ConvertDynamicsIntBool(),
             ChangesToTrustExplained = stagingApplication.ChangesToTrustExplained,
             FormTrustGrowthPlansYesNo = stagingApplication.FormTrustGrowthPlansYesNo.ConvertDynamicsIntBool(),
             FormTrustImprovementApprovedSponsor = stagingApplication.FormTrustImprovementApprovedSponsor,

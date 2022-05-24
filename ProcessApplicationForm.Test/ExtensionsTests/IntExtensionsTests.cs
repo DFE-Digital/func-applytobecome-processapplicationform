@@ -85,15 +85,4 @@ public class IntExtensionsTests
 
         result.Should().Be(expected);
     }
-
-    [Theory]
-    [InlineData(907660000, true)]
-    [InlineData(907660001, null)]
-    [InlineData(907660002, false)]
-    public void ConvertChangesToTrust_ReturnsExpectedValueFromInlineData(int? input, bool? expected) 
-    {
-        var result = input.ConvertChangesToTrust();
-
-        result.Should().Be(expected);
-    }
 }
