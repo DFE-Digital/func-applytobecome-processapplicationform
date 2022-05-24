@@ -57,12 +57,4 @@ public static class IntExtensions
         907660002 => null,
         _ => null
     };
-
-    public static bool? ConvertChangesToTrust(this int? value) => value switch
-    {
-        907660000 => true,
-        907660001 => null, // user on A2B external has selected Unknown,
-        907660002 => false,
-        _ => null
-    };
 }
