@@ -42,8 +42,6 @@ namespace ProcessApplicationFormFunction.Database.Models
 		public string FormTrustImprovementStrategy { get; set; }
 		public string FormTrustImprovementApprovedSponsor { get; set; }
 		public string TrustId { get; set; }
-		
-		[NotMapped]
 		public string TrustName { get; set; }
 		
 		[NotMapped]
