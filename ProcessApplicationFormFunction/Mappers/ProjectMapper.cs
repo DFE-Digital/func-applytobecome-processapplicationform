@@ -46,13 +46,11 @@ public class ProjectMapper : IMapper<A2BApplication, AcademyConversionProject>
                 RationaleForTrust = school.SchoolConversionReasonsForJoining,
                 EqualitiesImpactAssessmentConsidered = school.SchoolAdEqualitiesImpactAssessment.ToYesNoString(),
                 SponsorName = application.SponsorName,
-                SponsorReferenceNumber = application.SponsorReferenceNumber,
-                
-                RevenueCarryForwardAtEndMarchCurrentYear = school.SchoolCFYRevenue,
-                ProjectedRevenueBalanceAtEndMarchNextYear = school.SchoolNFYRevenue,
-                CapitalCarryForwardAtEndMarchCurrentYear = school.SchoolCFYCapitalForward,
-                CapitalCarryForwardAtEndMarchNextYear = school.SchoolNFYCapitalForward,
-                
+                SponsorReferenceNumber = application.SponsorReferenceNumber,                
+                RevenueCarryForwardAtEndMarchCurrentYear = ConvertDeficitAmountToNegativeValue(school.SchoolCFYRevenue, school.SchoolCFYRevenueIsDeficit),
+                ProjectedRevenueBalanceAtEndMarchNextYear = ConvertDeficitAmountToNegativeValue(school.SchoolNFYRevenue, school.SchoolNFYRevenueIsDeficit),
+                CapitalCarryForwardAtEndMarchCurrentYear = ConvertDeficitAmountToNegativeValue(school.SchoolCFYCapitalForward, school.SchoolCFYCapitalIsDeficit),
+                CapitalCarryForwardAtEndMarchNextYear = ConvertDeficitAmountToNegativeValue(school.SchoolNFYCapitalForward, school.SchoolNFYCapitalIsDeficit),                
                 YearOneProjectedPupilNumbers = school.ProjectedPupilNumbersYear1,
                 YearTwoProjectedPupilNumbers = school.ProjectedPupilNumbersYear2,
                 YearThreeProjectedPupilNumbers = school.ProjectedPupilNumbersYear3
@@ -62,5 +60,10 @@ public class ProjectMapper : IMapper<A2BApplication, AcademyConversionProject>
         }
         
         return projects;
+    }
+
+    private decimal? ConvertDeficitAmountToNegativeValue(decimal? amount, bool? isDeficit)
+    {
+        return isDeficit.HasValue ? isDeficit.Value ? amount * -1.0M : amount : null;
     }
 }
