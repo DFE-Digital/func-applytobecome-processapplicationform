@@ -47,10 +47,10 @@ public class ProjectMapper : IMapper<A2BApplication, AcademyConversionProject>
                 EqualitiesImpactAssessmentConsidered = school.SchoolAdEqualitiesImpactAssessment.ToYesNoString(),
                 SponsorName = application.SponsorName,
                 SponsorReferenceNumber = application.SponsorReferenceNumber,                
-                RevenueCarryForwardAtEndMarchCurrentYear = ConvertDeficitAmountToNegativeValue(school.SchoolCFYRevenue, school.SchoolCFYRevenueIsDeficit),
-                ProjectedRevenueBalanceAtEndMarchNextYear = ConvertDeficitAmountToNegativeValue(school.SchoolNFYRevenue, school.SchoolNFYRevenueIsDeficit),
-                CapitalCarryForwardAtEndMarchCurrentYear = ConvertDeficitAmountToNegativeValue(school.SchoolCFYCapitalForward, school.SchoolCFYCapitalIsDeficit),
-                CapitalCarryForwardAtEndMarchNextYear = ConvertDeficitAmountToNegativeValue(school.SchoolNFYCapitalForward, school.SchoolNFYCapitalIsDeficit),                
+                RevenueCarryForwardAtEndMarchCurrentYear = school.SchoolCFYRevenue.ConvertDeficitAmountToNegativeValue(school.SchoolCFYRevenueIsDeficit),
+                ProjectedRevenueBalanceAtEndMarchNextYear = school.SchoolNFYRevenue.ConvertDeficitAmountToNegativeValue(school.SchoolNFYRevenueIsDeficit),
+                CapitalCarryForwardAtEndMarchCurrentYear = school.SchoolCFYCapitalForward.ConvertDeficitAmountToNegativeValue(school.SchoolCFYCapitalIsDeficit),
+                CapitalCarryForwardAtEndMarchNextYear = school.SchoolNFYCapitalForward.ConvertDeficitAmountToNegativeValue(school.SchoolNFYCapitalIsDeficit),                
                 YearOneProjectedPupilNumbers = school.ProjectedPupilNumbersYear1,
                 YearTwoProjectedPupilNumbers = school.ProjectedPupilNumbersYear2,
                 YearThreeProjectedPupilNumbers = school.ProjectedPupilNumbersYear3
@@ -62,8 +62,4 @@ public class ProjectMapper : IMapper<A2BApplication, AcademyConversionProject>
         return projects;
     }
 
-    private decimal? ConvertDeficitAmountToNegativeValue(decimal? amount, bool? isDeficit)
-    {
-        return isDeficit.HasValue ? isDeficit.Value ? amount * -1.0M : amount : null;
-    }
 }
