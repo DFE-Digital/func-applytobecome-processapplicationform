@@ -46,13 +46,11 @@ public class ProjectMapper : IMapper<A2BApplication, AcademyConversionProject>
                 RationaleForTrust = school.SchoolConversionReasonsForJoining,
                 EqualitiesImpactAssessmentConsidered = school.SchoolAdEqualitiesImpactAssessment.ToYesNoString(),
                 SponsorName = application.SponsorName,
-                SponsorReferenceNumber = application.SponsorReferenceNumber,
-                
-                RevenueCarryForwardAtEndMarchCurrentYear = school.SchoolCFYRevenue,
-                ProjectedRevenueBalanceAtEndMarchNextYear = school.SchoolNFYRevenue,
-                CapitalCarryForwardAtEndMarchCurrentYear = school.SchoolCFYCapitalForward,
-                CapitalCarryForwardAtEndMarchNextYear = school.SchoolNFYCapitalForward,
-                
+                SponsorReferenceNumber = application.SponsorReferenceNumber,                
+                RevenueCarryForwardAtEndMarchCurrentYear = school.SchoolCFYRevenue.ConvertDeficitAmountToNegativeValue(school.SchoolCFYRevenueIsDeficit),
+                ProjectedRevenueBalanceAtEndMarchNextYear = school.SchoolNFYRevenue.ConvertDeficitAmountToNegativeValue(school.SchoolNFYRevenueIsDeficit),
+                CapitalCarryForwardAtEndMarchCurrentYear = school.SchoolCFYCapitalForward.ConvertDeficitAmountToNegativeValue(school.SchoolCFYCapitalIsDeficit),
+                CapitalCarryForwardAtEndMarchNextYear = school.SchoolNFYCapitalForward.ConvertDeficitAmountToNegativeValue(school.SchoolNFYCapitalIsDeficit),                
                 YearOneProjectedPupilNumbers = school.ProjectedPupilNumbersYear1,
                 YearTwoProjectedPupilNumbers = school.ProjectedPupilNumbersYear2,
                 YearThreeProjectedPupilNumbers = school.ProjectedPupilNumbersYear3
@@ -63,4 +61,5 @@ public class ProjectMapper : IMapper<A2BApplication, AcademyConversionProject>
         
         return projects;
     }
+
 }

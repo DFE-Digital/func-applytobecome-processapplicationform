@@ -2,8 +2,8 @@ namespace ProcessApplicationFormFunction.Extensions;
 
 public static class IntExtensions
 {
-    private static string EqualityStatement1 = "That the Secretary of State's decision is unlikely to disproportionately affect any particular person or group who share protected characteristics";
-    private static string EqualityStatement2 = "That there are some impacts but on balance the changes will not disproportionately affect any particular person or group who share protected characteristics";
+    private const string EqualityStatement1 = "That the Secretary of State's decision is unlikely to disproportionately affect any particular person or group who share protected characteristics";
+    private const string EqualityStatement2 = "That there are some impacts but on balance the changes will not disproportionately affect any particular person or group who share protected characteristics";
 
     public static bool? ConvertSurplusOrDeficit(this int? value) => value switch
     {
