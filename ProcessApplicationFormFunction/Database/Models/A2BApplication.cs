@@ -50,6 +50,9 @@ namespace ProcessApplicationFormFunction.Database.Models
 		[NotMapped]
 		public string SponsorName { get; set; }
 		
+		[NotMapped]
+		public DateTime ApplicationSubmittedOn { get; set; }
+		
 		public string ApplicationStatusId { get; set; }
 		
 		[ForeignKey(nameof(ApplicationId))]
