@@ -46,6 +46,7 @@ public record StagingApplication
     
     public string TrustName { get; init; }
     public string ApplicationStatusId {get; init;}
+    public DateTime ApplicationSubmittedOn { get; init; }
 
     [ForeignKey(nameof(DynamicsApplicationId))]
     public virtual ICollection<StagingKeyPerson> KeyPersons { get; init; }

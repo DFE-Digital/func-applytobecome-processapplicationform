@@ -33,7 +33,7 @@ public class ProjectMapper : IMapper<A2BApplication, AcademyConversionProject>
                 LocalAuthority = school.LocalAuthorityName,
                 ApplicationReferenceNumber = application.ApplicationId,
                 ProjectStatus = "Converter Pre-AO (C)",
-                ApplicationReceivedDate = DateTime.Today,
+                ApplicationReceivedDate = application.ApplicationSubmittedOn,
                 OpeningDate = DateTime.Today.AddMonths(6), // Business rule is to set this date to six months from project initiation
                 TrustReferenceNumber = application.TrustId,
                 NameOfTrust = application.TrustName,
@@ -61,5 +61,4 @@ public class ProjectMapper : IMapper<A2BApplication, AcademyConversionProject>
         
         return projects;
     }
-
 }

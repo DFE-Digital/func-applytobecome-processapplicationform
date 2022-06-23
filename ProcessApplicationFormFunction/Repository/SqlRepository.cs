@@ -39,6 +39,7 @@ public class SqlRepository : IRepository
             .Include(da => da.ApplyingSchools)
             .ThenInclude(ap => ap.SchoolLeases)
             .Where(ap => !existingApplicationIds.Contains(ap.Name))
+            .OrderBy(ap => ap.ApplicationSubmittedOn)
             .AsSingleQuery()
             .ToListAsync();
 }

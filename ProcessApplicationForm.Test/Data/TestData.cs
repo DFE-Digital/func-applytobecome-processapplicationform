@@ -73,6 +73,7 @@ public static class TestData
             TrustApproverName = StagingApplicationData.TrustApproverName,
             TrustId = StagingApplicationData.TrustId,
             TrustName = StagingApplicationData.TrustName,
+            ApplicationSubmittedOn = StagingApplicationData.ApplicationSubmittedOn,
             ApplyingSchools = new HashSet<A2BApplicationApplyingSchool>(),
             KeyPersons = new HashSet<A2BApplicationKeyPerson>()
         };
@@ -285,7 +286,7 @@ public static class TestData
             LocalAuthority = A2BApplicationApplyingSchoolData.LocalAuthorityName,
             ApplicationReferenceNumber = A2BApplicationData.ApplicationId,
             ProjectStatus = "Converter Pre-AO (C)",
-            ApplicationReceivedDate = DateTime.Today,
+            ApplicationReceivedDate = A2BApplicationData.ApplicationSubmittedOn,
             OpeningDate = DateTime.Today.AddMonths(6),
             TrustReferenceNumber = A2BApplicationData.TrustId,
             NameOfTrust = A2BApplicationData.TrustName,
