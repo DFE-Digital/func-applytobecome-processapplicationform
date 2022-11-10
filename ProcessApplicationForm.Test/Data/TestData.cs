@@ -298,6 +298,8 @@ public static class TestData
             PartOfPfiScheme = A2BApplicationApplyingSchoolData.SchoolBuildLandPFIScheme.ToYesNoString(),
             RationaleForTrust = A2BApplicationApplyingSchoolData.SchoolConversionReasonsForJoining,
             EqualitiesImpactAssessmentConsidered = A2BApplicationApplyingSchoolData.SchoolAdEqualitiesImpactAssessment.ToYesNoString(),
+            EndOfCurrentFinancialYear = A2BApplicationApplyingSchoolData.SchoolCFYEndDate,
+            EndOfNextFinancialYear = A2BApplicationApplyingSchoolData.SchoolNFYEndDate,
             RevenueCarryForwardAtEndMarchCurrentYear = A2BApplicationApplyingSchoolData.SchoolCFYRevenue.ConvertDeficitAmountToNegativeValue(A2BApplicationApplyingSchoolData.SchoolCFYRevenueIsDeficit),
             ProjectedRevenueBalanceAtEndMarchNextYear = A2BApplicationApplyingSchoolData.SchoolNFYRevenue.ConvertDeficitAmountToNegativeValue(A2BApplicationApplyingSchoolData.SchoolNFYRevenueIsDeficit),
             CapitalCarryForwardAtEndMarchCurrentYear = A2BApplicationApplyingSchoolData.SchoolCFYCapitalForward.ConvertDeficitAmountToNegativeValue(A2BApplicationApplyingSchoolData.SchoolCFYCapitalIsDeficit),
