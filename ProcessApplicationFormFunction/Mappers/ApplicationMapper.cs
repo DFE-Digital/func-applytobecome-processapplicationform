@@ -57,7 +57,8 @@ public class ApplicationMapper : IMapper<StagingApplication, A2BApplication>
             TrustName = stagingApplication.TrustName,
             ApplicationSubmittedOn = stagingApplication.ApplicationSubmittedOn,
             ApplyingSchools = _applyingSchoolMapper.Map(stagingApplication.ApplyingSchools).ToHashSet(),
-            KeyPersons = _keyPersonMapper.Map(stagingApplication.KeyPersons).ToHashSet()
+            KeyPersons = _keyPersonMapper.Map(stagingApplication.KeyPersons).ToHashSet(),
+            DynamicsApplicationId = stagingApplication.DynamicsApplicationId
         });
     }    
 }
