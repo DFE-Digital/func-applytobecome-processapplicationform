@@ -34,7 +34,8 @@ public static class TestData
             ChangesToLaGovernance = 907660000,
             ChangesToTrust = 907660000,
             FormTrustGrowthPlansYesNo = 907660000,
-            FormTrustReasonApprovalToConvertAsSat = 907660000
+            FormTrustReasonApprovalToConvertAsSat = 907660000,
+            DynamicsApplicationId = Guid.Empty
         };
 
         A2BApplicationData = new()
@@ -75,7 +76,8 @@ public static class TestData
             TrustName = StagingApplicationData.TrustName,
             ApplicationSubmittedOn = StagingApplicationData.ApplicationSubmittedOn,
             ApplyingSchools = new HashSet<A2BApplicationApplyingSchool>(),
-            KeyPersons = new HashSet<A2BApplicationKeyPerson>()
+            KeyPersons = new HashSet<A2BApplicationKeyPerson>(),
+            DynamicsApplicationId = Guid.Empty
         };
 
         StagingApplyingSchoolData = fixture.Create<StagingApplyingSchool>() with
@@ -110,7 +112,9 @@ public static class TestData
             SchoolNFYRevenueSurplusOrDeficit = 907660000,
             SchoolSupportGrantFundsPaidTo = 907660000,
             SchoolConversionContactRole = 90760000,
-            Urn = 1
+            Urn = 1,
+            LocalAuthorityName = "city counsil",
+            DynamicsApplyingSchoolId = Guid.Empty
         };
 
         A2BApplicationApplyingSchoolData = new()
@@ -251,7 +255,8 @@ public static class TestData
             KeyPersonFinancialDirector = StagingKeyPersonData.KeyPersonFinancialDirector,
             KeyPersonMember = StagingKeyPersonData.KeyPersonMember,
             KeyPersonOther = StagingKeyPersonData.KeyPersonOther,
-            KeyPersonTrustee = StagingKeyPersonData.KeyPersonTrustee
+            KeyPersonTrustee = StagingKeyPersonData.KeyPersonTrustee,
+            DynamicsKeyPersonId = StagingKeyPersonData.DynamicsKeyPersonId
         };
 
         StagingSchoolLeaseData = fixture.Create<StagingSchoolLease>();
@@ -264,7 +269,8 @@ public static class TestData
             SchoolLeaseRepaymentValue = StagingSchoolLeaseData.SchoolLeaseRepaymentValue,
             SchoolLeaseResponsibleForAssets = StagingSchoolLeaseData.SchoolLeaseResponsibleForAssets,
             SchoolLeaseTerm = StagingSchoolLeaseData.SchoolLeaseTerm,
-            SchoolLeaseValueOfAssets = StagingSchoolLeaseData.SchoolLeaseValueOfAssets
+            SchoolLeaseValueOfAssets = StagingSchoolLeaseData.SchoolLeaseValueOfAssets,
+            DynamicsSchoolLeaseId = StagingSchoolLeaseData.DynamicsSchoolLeaseId
         };
 
         StagingSchoolLoanData = fixture.Create<StagingSchoolLoan>();
@@ -275,7 +281,8 @@ public static class TestData
             SchoolLoanInterestRate = StagingSchoolLoanData.SchoolLoanInterestRate,
             SchoolLoanProvider = StagingSchoolLoanData.SchoolLoanProvider,
             SchoolLoanPurpose = StagingSchoolLoanData.SchoolLoanPurpose,
-            SchoolLoanSchedule = StagingSchoolLoanData.SchoolLoanSchedule
+            SchoolLoanSchedule = StagingSchoolLoanData.SchoolLoanSchedule,
+            DynamicsSchoolLoanId = StagingSchoolLoanData.DynamicsSchoolLoanId
         };
         
         AcademyConversionProjectData = new()
