@@ -128,10 +128,11 @@ namespace ProcessApplicationFormFunction.Database.Models
         public string ApplicationId { get; set; }
         public virtual A2BApplication A2BApplication { get; set; }
         
-        [NotMapped]
         public int Urn { get; set; }
         
-        [NotMapped]
         public string LocalAuthorityName { get; set; }
+
+        // MR:- below mods for Dynamics -> SQL server A2B external app conversion
+        public Guid DynamicsApplyingSchoolId { get; set; }
     }
 }
