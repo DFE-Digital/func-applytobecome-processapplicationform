@@ -17,6 +17,7 @@ public class KeyPersonMapper : IMapper<StagingKeyPerson, A2BApplicationKeyPerson
             KeyPersonDateOfBirth = keyPerson.KeyPersonDateOfBirth,
             KeyPersonChairOfTrust = keyPerson.KeyPersonChairOfTrust,
             KeyPersonBiography = keyPerson.KeyPersonBiography,
-            KeyPersonCeoExecutive = keyPerson.KeyPersonCeoExecutive
+            KeyPersonCeoExecutive = keyPerson.KeyPersonCeoExecutive,
+            DynamicsKeyPersonId = keyPerson.DynamicsKeyPersonId
         });
 }

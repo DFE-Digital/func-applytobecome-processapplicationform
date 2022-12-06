@@ -13,6 +13,7 @@ public class SchoolLoanMapper : IMapper<StagingSchoolLoan, A2BSchoolLoan>
             SchoolLoanInterestRate = schoolLoan.SchoolLoanInterestRate,
             SchoolLoanProvider = schoolLoan.SchoolLoanProvider,
             SchoolLoanPurpose = schoolLoan.SchoolLoanPurpose,
-            SchoolLoanSchedule = schoolLoan.SchoolLoanSchedule
+            SchoolLoanSchedule = schoolLoan.SchoolLoanSchedule,
+            DynamicsSchoolLoanId = schoolLoan.DynamicsSchoolLoanId
         });
 }

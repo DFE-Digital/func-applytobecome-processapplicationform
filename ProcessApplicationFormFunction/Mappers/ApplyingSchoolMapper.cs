@@ -117,7 +117,9 @@ public class ApplyingSchoolMapper : IMapper<StagingApplyingSchool, A2BApplicatio
             SchoolLoans = _schoolLoanMapper.Map(applyingSchool.SchoolLoans).ToHashSet(),
             
             Urn = applyingSchool.Urn,
-            LocalAuthorityName = applyingSchool.LocalAuthorityName
+            LocalAuthorityName = applyingSchool.LocalAuthorityName,
+            DynamicsApplyingSchoolId = applyingSchool.DynamicsApplyingSchoolId,
+            DynamicsApplicationId = applyingSchool.DynamicsApplicationId
         });
     }
 }

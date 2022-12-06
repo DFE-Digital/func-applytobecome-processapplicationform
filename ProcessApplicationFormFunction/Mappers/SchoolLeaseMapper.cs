@@ -15,6 +15,7 @@ public class SchoolLeaseMapper : IMapper<StagingSchoolLease, A2BSchoolLease>
             SchoolLeaseRepaymentValue = schoolLease.SchoolLeaseRepaymentValue,
             SchoolLeaseResponsibleForAssets = schoolLease.SchoolLeaseResponsibleForAssets,
             SchoolLeaseTerm = schoolLease.SchoolLeaseTerm,
-            SchoolLeaseValueOfAssets = schoolLease.SchoolLeaseValueOfAssets            
+            SchoolLeaseValueOfAssets = schoolLease.SchoolLeaseValueOfAssets,
+            DynamicsSchoolLeaseId = schoolLease.DynamicsSchoolLeaseId
         });
 }

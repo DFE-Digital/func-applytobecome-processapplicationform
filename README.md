@@ -35,7 +35,7 @@ Please follow the section below relevent to your development environment
   * Settings > Tools tab: "Azure". Select the Functions subsection, and install the latest version of the Azure Functions Core Tools. Restart Rider.
 </details>
 
-You will need to run locally against **Dev** and ensure you have either an environment variable, secret or a local.settings.json file with
+You will need to run locally against **Dev** and ensure you have an environment variable with
 the following value set to the the connection string for **Dev Database**:
 
 `SQLAZURECONNSTR_SqlConnectionString`
@@ -45,6 +45,9 @@ _Note: As we cannot run the ADF pipeline against local Db, we will not have the 
  
 Once you have this in place you will be able to run locally and after a few seconds your output window should show the link call the http trigger.
 For example: ProcessApplicationForm: [GET] http://localhost:7071/api/ProcessApplicationForm
+
+visual studio user secrets won't work, see:-
+https://dombarter.co.uk/posts/azure-functions-app-settings/
 
 ## Authorisation
   
