@@ -23,13 +23,26 @@ BEGIN TRANSACTION CreateNewSddSchemaTableColumns
 		FROM INFORMATION_SCHEMA.COLUMNS
 		WHERE TABLE_SCHEMA = 'sdd'
 		AND TABLE_NAME = 'A2BApplicationApplyingSchool'
-		AND COLUMN_NAME = 'DynamicsKeyPersonId'
+		AND COLUMN_NAME = 'DynamicsApplyingSchoolId'
 	)
 	BEGIN
 		ALTER TABLE [sdd].[A2BApplicationApplyingSchool]
 		ADD	DynamicsApplyingSchoolId uniqueidentifier NULL,
 			Urn int NULL,
 			LocalAuthorityName nvarchar(max) NULL
+	END
+
+	IF NOT EXISTS
+	(
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE TABLE_SCHEMA = 'sdd'
+		AND TABLE_NAME = 'A2BApplicationApplyingSchool'
+		AND COLUMN_NAME = 'DynamicsApplicationId'
+	)
+	BEGIN
+		ALTER TABLE [sdd].[A2BApplicationApplyingSchool]
+		ADD	DynamicsApplicationId uniqueidentifier NULL
 	END
 
 	/*** [sdd].[A2BApplicationKeyPersons] ***/

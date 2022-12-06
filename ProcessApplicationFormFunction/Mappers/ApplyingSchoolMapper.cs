@@ -118,7 +118,8 @@ public class ApplyingSchoolMapper : IMapper<StagingApplyingSchool, A2BApplicatio
             
             Urn = applyingSchool.Urn,
             LocalAuthorityName = applyingSchool.LocalAuthorityName,
-            DynamicsApplyingSchoolId = applyingSchool.DynamicsApplyingSchoolId
+            DynamicsApplyingSchoolId = applyingSchool.DynamicsApplyingSchoolId,
+            DynamicsApplicationId = applyingSchool.DynamicsApplicationId
         });
     }
 }

@@ -134,5 +134,7 @@ namespace ProcessApplicationFormFunction.Database.Models
 
         // MR:- below mods for Dynamics -> SQL server A2B external app conversion
         public Guid DynamicsApplyingSchoolId { get; set; }
+
+        public Guid DynamicsApplicationId { get; set; }
     }
 }

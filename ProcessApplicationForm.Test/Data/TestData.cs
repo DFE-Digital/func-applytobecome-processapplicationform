@@ -114,7 +114,8 @@ public static class TestData
             SchoolConversionContactRole = 90760000,
             Urn = 1,
             LocalAuthorityName = "city counsil",
-            DynamicsApplyingSchoolId = Guid.Empty
+            DynamicsApplyingSchoolId = Guid.Empty,
+            DynamicsApplicationId = Guid.Empty
         };
 
         A2BApplicationApplyingSchoolData = new()
