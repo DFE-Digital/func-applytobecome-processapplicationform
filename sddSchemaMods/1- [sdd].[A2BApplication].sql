@@ -74,7 +74,7 @@ BEGIN TRANSACTION CreateNewSddSchemaTableColumns
 		ADD	DynamicsSchoolLoanId uniqueidentifier NULL
 	END
 
-	--COMMIT TRAN CreateNewSddSchemaTableColumns
+	COMMIT TRAN CreateNewSddSchemaTableColumns
 	--ROLLBACK TRAN CreateNewSddSchemaTableColumns
 
 END TRY
