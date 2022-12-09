@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProcessApplicationFormFunction.Database.Models
 {
-    [Table("AcademyConversionProject", Schema = "sdd")]
+    [Table("Project", Schema = "academisation")]
     public record AcademyConversionProject
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } 
-        public int IfdPipelineId { get; set; } 
+        public int Id { get; set; }
+        public int IfdPipelineId { get; set; }
         public int? Urn { get; set; }
         public string SchoolName { get; set; }
         public string LocalAuthority { get; set; }
@@ -41,5 +41,7 @@ namespace ProcessApplicationFormFunction.Database.Models
         public int? YearOneProjectedPupilNumbers { get; set; }
         public int? YearTwoProjectedPupilNumbers { get; set; }
         public int? YearThreeProjectedPupilNumbers { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime LastModifiedOn { get; set; }
     }
 }

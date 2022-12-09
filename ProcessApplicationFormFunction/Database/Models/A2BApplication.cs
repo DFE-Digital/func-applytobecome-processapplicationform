@@ -5,16 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProcessApplicationFormFunction.Database.Models
 {
-    [Table("A2BApplication", Schema="sdd")]
-    public record A2BApplication
-    {
-	    [Key] 
-	    public string ApplicationId { get; set; }
-	    
-	    public string Name { get; set; }
-	    public string ApplicationType { get; set; }
-	    public string FormTrustProposedNameOfTrust { get; set; }
-	    public bool? ApplicationSubmitted { get; set; }
+	[Table("A2BApplication", Schema = "sdd")]
+	public record A2BApplication
+	{
+		[Key]
+		public string ApplicationId { get; set; }
+
+		public string Name { get; set; }
+		public string ApplicationType { get; set; }
+		public string FormTrustProposedNameOfTrust { get; set; }
+		public bool? ApplicationSubmitted { get; set; }
 		public string ApplicationLeadAuthorId { get; set; }
 		public string ApplicationVersion { get; set; }
 		public string ApplicationLeadAuthorName { get; set; }
@@ -43,25 +43,24 @@ namespace ProcessApplicationFormFunction.Database.Models
 		public string FormTrustImprovementApprovedSponsor { get; set; }
 		public string TrustId { get; set; }
 		public string TrustName { get; set; }
-		
+
 		[NotMapped]
 		public string SponsorReferenceNumber { get; set; }
-		
+
 		[NotMapped]
 		public string SponsorName { get; set; }
-		
+
 		[NotMapped]
 		public DateTime ApplicationSubmittedOn { get; set; }
-		
-		public string ApplicationStatusId { get; set; }
-		
-		[ForeignKey(nameof(ApplicationId))]
-        public virtual ICollection<A2BApplicationKeyPerson> KeyPersons { get; set; }
-        
-        [ForeignKey(nameof(ApplicationId))]
-        public virtual ICollection<A2BApplicationApplyingSchool> ApplyingSchools { get; set; }
 
-        // MR:- below mods for Dynamics -> SQL server A2B external app conversion
-        public Guid DynamicsApplicationId { get; set; }
-    }
+		public string ApplicationStatusId { get; set; }
+
+		[ForeignKey(nameof(ApplicationId))]
+		public virtual ICollection<A2BApplicationKeyPerson> KeyPersons { get; set; }
+
+		[ForeignKey(nameof(ApplicationId))]
+		public virtual ICollection<A2BApplicationApplyingSchool> ApplyingSchools { get; set; }
+
+		public Guid DynamicsApplicationId { get; set; }
+	}
 }
