@@ -34,6 +34,8 @@ namespace ProcessApplicationFormFunction.Database.Models
         public string EqualitiesImpactAssessmentConsidered { get; set; }
 
         // school budget info
+        public DateTime? EndOfCurrentFinancialYear { get; set; }
+        public DateTime? EndOfNextFinancialYear { get; set; }
         [Column(TypeName = "decimal(38, 2)")] public decimal? RevenueCarryForwardAtEndMarchCurrentYear { get; set; }
         [Column(TypeName = "decimal(38, 2)")] public decimal? ProjectedRevenueBalanceAtEndMarchNextYear { get; set; }
         [Column(TypeName = "decimal(38, 2)")] public decimal? CapitalCarryForwardAtEndMarchCurrentYear { get; set; }
