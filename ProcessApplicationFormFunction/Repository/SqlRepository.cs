@@ -11,8 +11,8 @@ public class SqlRepository : IRepository
 {
     private readonly SipDbContext _context;
 
-    public SqlRepository(SipDbContext context) => _context = context; 
-    
+    public SqlRepository(SipDbContext context) => _context = context;
+
     public async Task AddA2BApplications(IEnumerable<A2BApplication> applications)
     {
         _context.A2BApplications.AddRange(applications);
@@ -25,7 +25,13 @@ public class SqlRepository : IRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<string>> GetA2BApplicationIds() =>
+   public async Task AddAcademisationProjects(IEnumerable<AcademisationProject> projects)
+   {
+      _context.AcademisationProjects.AddRange(projects);
+      await _context.SaveChangesAsync();
+   }
+
+   public async Task<IEnumerable<string>> GetA2BApplicationIds() =>
         await _context.A2BApplications
             .Select(app => app.ApplicationId)
             .ToListAsync();

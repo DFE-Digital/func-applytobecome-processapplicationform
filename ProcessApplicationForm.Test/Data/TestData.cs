@@ -22,7 +22,8 @@ public static class TestData
     public static A2BSchoolLease A2BSchoolLeaseData { get; }
 
     public static AcademyConversionProject AcademyConversionProjectData { get; }
-    
+    public static AcademisationProject AcademisationProjectData { get; }
+
     static TestData()
     {
         var fixture = new Fixture();
@@ -285,8 +286,39 @@ public static class TestData
             SchoolLoanSchedule = StagingSchoolLoanData.SchoolLoanSchedule,
             DynamicsSchoolLoanId = StagingSchoolLoanData.DynamicsSchoolLoanId
         };
-        
+
         AcademyConversionProjectData = new()
+        {
+            IfdPipelineId = 0,
+            Urn = A2BApplicationApplyingSchoolData.Urn,
+            SchoolName = A2BApplicationApplyingSchoolData.Name,
+            LocalAuthority = A2BApplicationApplyingSchoolData.LocalAuthorityName,
+            ApplicationReferenceNumber = A2BApplicationData.ApplicationId,
+            ProjectStatus = "Converter Pre-AO (C)",
+            ApplicationReceivedDate = A2BApplicationData.ApplicationSubmittedOn,
+            OpeningDate = DateTime.Today.AddMonths(6),
+            TrustReferenceNumber = A2BApplicationData.TrustId,
+            NameOfTrust = A2BApplicationData.TrustName,
+            AcademyTypeAndRoute = "Converter",
+            ProposedAcademyOpeningDate = A2BApplicationApplyingSchoolData.SchoolConversionTargetDateDate,
+            ConversionSupportGrantAmount = 25000,
+            FinancialDeficit = A2BApplicationApplyingSchoolData.SchoolCFYCapitalIsDeficit.ToYesNoString(),
+            PublishedAdmissionNumber = A2BApplicationApplyingSchoolData.SchoolCapacityPublishedAdmissionsNumber.ToString(),
+            PartOfPfiScheme = A2BApplicationApplyingSchoolData.SchoolBuildLandPFIScheme.ToYesNoString(),
+            RationaleForTrust = A2BApplicationApplyingSchoolData.SchoolConversionReasonsForJoining,
+            EqualitiesImpactAssessmentConsidered = A2BApplicationApplyingSchoolData.SchoolAdEqualitiesImpactAssessment.ToYesNoString(),
+            EndOfCurrentFinancialYear = A2BApplicationApplyingSchoolData.SchoolCFYEndDate,
+            EndOfNextFinancialYear = A2BApplicationApplyingSchoolData.SchoolNFYEndDate,
+            RevenueCarryForwardAtEndMarchCurrentYear = A2BApplicationApplyingSchoolData.SchoolCFYRevenue.ConvertDeficitAmountToNegativeValue(A2BApplicationApplyingSchoolData.SchoolCFYRevenueIsDeficit),
+            ProjectedRevenueBalanceAtEndMarchNextYear = A2BApplicationApplyingSchoolData.SchoolNFYRevenue.ConvertDeficitAmountToNegativeValue(A2BApplicationApplyingSchoolData.SchoolNFYRevenueIsDeficit),
+            CapitalCarryForwardAtEndMarchCurrentYear = A2BApplicationApplyingSchoolData.SchoolCFYCapitalForward.ConvertDeficitAmountToNegativeValue(A2BApplicationApplyingSchoolData.SchoolCFYCapitalIsDeficit),
+            CapitalCarryForwardAtEndMarchNextYear = A2BApplicationApplyingSchoolData.SchoolNFYCapitalForward.ConvertDeficitAmountToNegativeValue(A2BApplicationApplyingSchoolData.SchoolNFYCapitalIsDeficit),
+            YearOneProjectedPupilNumbers = A2BApplicationApplyingSchoolData.ProjectedPupilNumbersYear1,
+            YearTwoProjectedPupilNumbers = A2BApplicationApplyingSchoolData.ProjectedPupilNumbersYear2,
+            YearThreeProjectedPupilNumbers = A2BApplicationApplyingSchoolData.ProjectedPupilNumbersYear3
+        };
+
+        AcademisationProjectData = new()
         {
             IfdPipelineId = 0,
             Urn = A2BApplicationApplyingSchoolData.Urn,
@@ -412,7 +444,14 @@ public static class TestData
     public static IEnumerable<AcademyConversionProject> GenerateCompleteAcademyConversionProjects(int count) =>
         Enumerable.Range(1, count).Select(id => AcademyConversionProjectData with
         {
-            ApplicationReferenceNumber =  $"A2B_TEST{id}",
+            ApplicationReferenceNumber = $"A2B_TEST{id}",
+            Urn = id
+        });
+
+    public static IEnumerable<AcademisationProject> GenerateAcademisationProjects(int count) =>
+        Enumerable.Range(1, count).Select(id => AcademisationProjectData with
+        {
+            ApplicationReferenceNumber = $"A2B_TEST{id}",
             Urn = id
         });
 }

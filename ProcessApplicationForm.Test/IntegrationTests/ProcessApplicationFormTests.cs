@@ -23,7 +23,8 @@ public class ProcessApplicationFormTests
     private readonly Mock<HttpRequest> _mockRequest;
     private readonly Mock<IRepository> _mockRepository;
     private readonly Mock<IMapper<StagingApplication, A2BApplication>> _mockApplicationMapper;
-    private readonly Mock<IMapper<A2BApplication, AcademyConversionProject>> _mockProjectMapper;
+    private readonly Mock<IMapper<A2BApplication, AcademisationProject>> _mockAcademisationProjectMapper;
+    private readonly Mock<IMapper<A2BApplication, AcademyConversionProject>> _mockAcademyConversionProjectMapper;
     private readonly Mock<ILogger> _mockLogger;
 
     public ProcessApplicationFormTests()
@@ -32,7 +33,8 @@ public class ProcessApplicationFormTests
         _mockRequest = new();
         _mockRepository = new();
         _mockApplicationMapper = new();
-        _mockProjectMapper = new();
+        _mockAcademyConversionProjectMapper = new();
+        _mockAcademisationProjectMapper = new();
     }
 
     [Fact]
@@ -60,12 +62,12 @@ public class ProcessApplicationFormTests
             .Setup(r => r.Map(stagingApplications))
             .Returns(a2BApplications);
 
-        _mockProjectMapper
+        _mockAcademyConversionProjectMapper
             .Setup(r => r.Map(a2BApplications))
             .Returns(academyConversionProjects);
 
         ProcessApplicationFormFunction.ProcessApplicationForm function =
-            new(_mockRepository.Object, _mockApplicationMapper.Object, _mockProjectMapper.Object);
+            new(_mockRepository.Object, _mockApplicationMapper.Object, _mockAcademyConversionProjectMapper.Object, _mockAcademisationProjectMapper.Object);
 
         var x = new ActionContext();
 
@@ -93,17 +95,19 @@ public class ProcessApplicationFormTests
          _mockApplicationMapper
              .Setup(r => r.Map(It.IsAny<IEnumerable<StagingApplication>>()));
 
-         ProcessApplicationFormFunction.ProcessApplicationForm function = 
-             new(_mockRepository.Object, _mockApplicationMapper.Object, _mockProjectMapper.Object);
+         ProcessApplicationFormFunction.ProcessApplicationForm function =
+             new(_mockRepository.Object, _mockApplicationMapper.Object, _mockAcademyConversionProjectMapper.Object, _mockAcademisationProjectMapper.Object);
 
          var result = await function.RunAsync(_mockRequest.Object, _mockLogger.Object);
-         
-         _mockApplicationMapper.Verify(m => m.Map(It.IsAny<IEnumerable<StagingApplication>>()), Times.Never);
-         _mockProjectMapper.Verify(m => m.Map(It.IsAny<IEnumerable<A2BApplication>>()), Times.Never);
-         _mockRepository.Verify(r => r.AddA2BApplications(It.IsAny<IEnumerable<A2BApplication>>()), Times.Never);
-         _mockRepository.Verify(r => r.AddAcademyConversionProjects(It.IsAny<IEnumerable<AcademyConversionProject>>()), Times.Never);
 
-         result.Should().BeEquivalentTo(new OkResult());
+         _mockApplicationMapper.Verify(m => m.Map(It.IsAny<IEnumerable<StagingApplication>>()), Times.Never);
+        _mockAcademyConversionProjectMapper.Verify(m => m.Map(It.IsAny<IEnumerable<A2BApplication>>()), Times.Never);
+        _mockAcademisationProjectMapper.Verify(m => m.Map(It.IsAny<IEnumerable<A2BApplication>>()), Times.Never);
+        _mockRepository.Verify(r => r.AddA2BApplications(It.IsAny<IEnumerable<A2BApplication>>()), Times.Never);
+         _mockRepository.Verify(r => r.AddAcademyConversionProjects(It.IsAny<IEnumerable<AcademyConversionProject>>()), Times.Never);
+        _mockRepository.Verify(r => r.AddAcademisationProjects(It.IsAny<IEnumerable<AcademisationProject>>()), Times.Never);
+
+        result.Should().BeEquivalentTo(new OkResult());
      }
 
      [Fact]
@@ -113,8 +117,8 @@ public class ProcessApplicationFormTests
              .Setup(r => r.GetA2BApplicationIds())
              .ThrowsAsync(new DBConcurrencyException());
 
-         ProcessApplicationFormFunction.ProcessApplicationForm function = 
-             new(_mockRepository.Object, _mockApplicationMapper.Object, _mockProjectMapper.Object);
+         ProcessApplicationFormFunction.ProcessApplicationForm function =
+             new(_mockRepository.Object, _mockApplicationMapper.Object, _mockAcademyConversionProjectMapper.Object, _mockAcademisationProjectMapper.Object);
 
          var result = await function.RunAsync( _mockRequest.Object, _mockLogger.Object);
 

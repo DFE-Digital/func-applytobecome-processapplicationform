@@ -18,17 +18,20 @@ public class ProcessApplicationForm
 {
    private readonly IRepository _repository;
    private readonly IMapper<StagingApplication, A2BApplication> _applicationMapper;
-   private readonly IMapper<A2BApplication, AcademyConversionProject> _projectMapper;
+   private readonly IMapper<A2BApplication, AcademyConversionProject> _academyConversionMapper;
+   private readonly IMapper<A2BApplication, AcademisationProject> _projectMapper;
 
 
    public ProcessApplicationForm(
       IRepository repository,
       IMapper<StagingApplication, A2BApplication> applicationMapper,
-      IMapper<A2BApplication, AcademyConversionProject> projectMapper
+      IMapper<A2BApplication, AcademyConversionProject> academyConversionMapper,
+      IMapper<A2BApplication, AcademisationProject> projectMapper
    )
    {
       _repository = repository;
       _applicationMapper = applicationMapper;
+      _academyConversionMapper = academyConversionMapper;
       _projectMapper = projectMapper;
    }
 
@@ -51,8 +54,11 @@ public class ProcessApplicationForm
 
             log.LogInformation("Created {Count} applications in database", mappedApplications.Count);
 
+            var mappedAcademyConversionProjects = _academyConversionMapper.Map(mappedApplications);
             var mappedProjects = _projectMapper.Map(mappedApplications);
-            await _repository.AddAcademyConversionProjects(mappedProjects);
+
+            await _repository.AddAcademyConversionProjects(mappedAcademyConversionProjects);
+            await _repository.AddAcademisationProjects(mappedProjects);
 
             log.LogInformation("Created {Count} projects in database", mappedApplications.Count);
          }

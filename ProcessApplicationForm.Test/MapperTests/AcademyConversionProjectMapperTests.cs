@@ -8,11 +8,11 @@ using Xunit;
 
 namespace ProcessApplicationForm.Test.MapperTests;
 
-public class ProjectMapperTests
+public class AcademyConversionProjectMapperTests
 {
-    private readonly ProjectMapper _mapper;
+    private readonly AcademyConversionProjectMapper _mapper;
 
-    public ProjectMapperTests()
+    public AcademyConversionProjectMapperTests()
     {
         _mapper = new();
     }
@@ -24,7 +24,7 @@ public class ProjectMapperTests
 
         var result = _mapper.Map(applications);
 
-        result.Should().BeAssignableTo<IEnumerable<AcademisationProject>>();
+        result.Should().BeAssignableTo<IEnumerable<AcademyConversionProject>>();
     }
 
     [Fact]
@@ -32,13 +32,10 @@ public class ProjectMapperTests
     {
         var applications = TestData.GenerateCompleteA2BApplications(10).ToList();
 
-        var expected = TestData.GenerateAcademisationProjects(10).ToList();
+        var expected = TestData.GenerateCompleteAcademyConversionProjects(10).ToList();
 
         var result = _mapper.Map(applications).ToList();
 
-        result.Should().BeEquivalentTo(expected, o => o
-            .Excluding(p => p.CreatedOn)
-            .Excluding(p => p.LastModifiedOn)
-            .Excluding(p => p.OpeningDate));
+        result.Should().BeEquivalentTo(expected, o => o.Excluding(p => p.OpeningDate));
     }
 };

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProcessApplicationFormFunction.Database.Models
 {
-   [Table("Project", Schema = "academisation")]
+   [Table("AcademyConversionProject", Schema = "sdd")]
    public record AcademyConversionProject
    {
       [Key]
@@ -43,7 +43,5 @@ namespace ProcessApplicationFormFunction.Database.Models
       public int? YearOneProjectedPupilNumbers { get; set; }
       public int? YearTwoProjectedPupilNumbers { get; set; }
       public int? YearThreeProjectedPupilNumbers { get; set; }
-      public DateTime CreatedOn { get; set; }
-      public DateTime LastModifiedOn { get; set; }
    }
 }

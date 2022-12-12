@@ -7,14 +7,14 @@ using ProcessApplicationFormFunction.Extensions;
 
 namespace ProcessApplicationFormFunction.Mappers;
 
-public class ProjectMapper : IMapper<A2BApplication, AcademisationProject>
+public class AcademyConversionProjectMapper : IMapper<A2BApplication, AcademyConversionProject>
 {
     private const decimal DefaultConversionSupportGrantAmount = 25000;
     private const string DefaultAcademyTypeAndRoute = "Converter";
 
-    public IEnumerable<AcademisationProject> Map([NotNull] IEnumerable<A2BApplication> source)
+    public IEnumerable<AcademyConversionProject> Map([NotNull] IEnumerable<A2BApplication> source)
     {
-        List<AcademisationProject> projects = new();
+        List<AcademyConversionProject> projects = new();
 
         foreach (var application in source)
         {
@@ -27,7 +27,7 @@ public class ProjectMapper : IMapper<A2BApplication, AcademisationProject>
 
             var now = DateTime.Now;
 
-            var academisationProject = new AcademisationProject
+            var academyConversionProject = new AcademyConversionProject
             {
                 IfdPipelineId = 0, // not required
                 Urn = school.Urn,
@@ -57,12 +57,10 @@ public class ProjectMapper : IMapper<A2BApplication, AcademisationProject>
                 CapitalCarryForwardAtEndMarchNextYear = school.SchoolNFYCapitalForward.ConvertDeficitAmountToNegativeValue(school.SchoolNFYCapitalIsDeficit),
                 YearOneProjectedPupilNumbers = school.ProjectedPupilNumbersYear1,
                 YearTwoProjectedPupilNumbers = school.ProjectedPupilNumbersYear2,
-                YearThreeProjectedPupilNumbers = school.ProjectedPupilNumbersYear3,
-                LastModifiedOn = now,
-                CreatedOn = now
+                YearThreeProjectedPupilNumbers = school.ProjectedPupilNumbersYear3
             };
 
-            projects.Add(academisationProject);
+            projects.Add(academyConversionProject);
         }
 
         return projects;
