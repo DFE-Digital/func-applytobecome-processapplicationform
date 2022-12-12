@@ -10,4 +10,5 @@ public interface IRepository
     Task<IEnumerable<StagingApplication>> GetStagingApplications(IEnumerable<string> applicationIds);
     Task AddA2BApplications(IEnumerable<A2BApplication> applications);
     Task AddAcademyConversionProjects(IEnumerable<AcademyConversionProject> projects);
+    Task AddAcademisationProjects(IEnumerable<AcademisationProject> projects);
 }

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ProcessApplicationFormFunction": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "SQLAZURECONNSTR_SqlConnectionString": "Data Source=localhost;Initial Catalog=sip;persist security info=True;User id=sa; Password=StrongPassword905"
+      }
+    }
+  }
+}
