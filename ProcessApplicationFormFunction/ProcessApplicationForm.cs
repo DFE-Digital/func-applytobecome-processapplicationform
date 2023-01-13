@@ -53,9 +53,12 @@ public class ProcessApplicationForm
             await _repository.AddA2BApplications(mappedApplications);
 
             log.LogInformation("Created {Count} applications in database", mappedApplications.Count);
+            
+            // Change to filter out none submitted applications if the data factory pipeline is change to not include only submitted applications
+            var submittedMappedApplication = mappedApplications.Where(x => x.ApplicationSubmitted is true).ToList();
 
-            var mappedAcademyConversionProjects = _academyConversionMapper.Map(mappedApplications);
-            var mappedProjects = _projectMapper.Map(mappedApplications);
+            var mappedAcademyConversionProjects = _academyConversionMapper.Map(submittedMappedApplication);
+            var mappedProjects = _projectMapper.Map(submittedMappedApplication);
 
             await _repository.AddAcademyConversionProjects(mappedAcademyConversionProjects);
             await _repository.AddAcademisationProjects(mappedProjects);
